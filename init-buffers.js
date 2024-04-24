@@ -1,11 +1,11 @@
 function initBuffers(gl) {
-    const colorBuffer = initColorBuffer(gl);
+    const textureCoordBuffer = initTextureBuffer(gl);
     const positionBuffer = initPositionBuffer(gl);
     const indexBuffer = initIndexBuffer(gl);
 
     return {
         position: positionBuffer,
-        color: colorBuffer,
+        textureCoord: textureCoordBuffer,
         indices: indexBuffer,
     };
 }
@@ -41,7 +41,7 @@ function initColorBuffer(gl) {
 
     for (var j = 0; j < faceColors.length; ++j) {
         const c = faceColors[j];
-        
+
         colors = colors.concat(c, c, c, c);
     }
 
@@ -65,5 +65,28 @@ function initIndexBuffer(gl) {
 
     return indexBuffer;
 }
+
+function initTextureBuffer(gl) {
+    const textureCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, textureCoordBuffer);
+
+    const textureCoordinates = [
+        0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+        0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+        0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+        0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+        0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+        0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,
+    ];
+
+    gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array(textureCoordinates),
+        gl.STATIC_DRAW,
+    );
+
+    return textureCoordBuffer;
+}
+
 
 export { initBuffers };
