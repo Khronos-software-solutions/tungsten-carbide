@@ -2,3 +2,14 @@ html {
     height: 100%;
     width: 100%;
 }
+
+.main {
+    vertical-align: center; 
+}
+
+.buttons button {
+    color: white;
+    padding: 5px; 
+    border-radius: 5px;
+    background-color: darkblue; 
+}
