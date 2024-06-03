@@ -1,6 +1,7 @@
 html {
     height: 100%;
     width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .buttons button {
@@ -11,9 +12,9 @@ html {
 }
 
 .body_dark {
-    background-color: dark-grey
+    background-color: rgb(74, 70, 70);
 }
 
 .body_light {
-
+    background-color: whitesmoke; 
 }
