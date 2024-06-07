@@ -18,3 +18,11 @@ html {
 .body_light {
     background-color: whitesmoke; 
 }
+
+.Login_container {
+    display: inline-block;
+    Background-color: grey ;
+    Border-radius: 5px;
+    margin: 10px; 
+    padding: 10px;
+}
