@@ -1,5 +1,5 @@
 const getCookie = (name) => {
-    let c = document.cookie.split(';')
+    let c = document.cookie.decodeURI().split(';')
     let i = c.findIndex(_ => _.includes(`${name}=`))
     if (i !== -1) {
         return c[i].slice(c[i].indexOf('=') + 1)
@@ -10,7 +10,7 @@ const getCookie = (name) => {
 }
 
 const setCookie = (name, data) => {
-    let c = document.cookie.split(';')
+    let c = document.cookie.decodeURI().split(';')
     
     let i = c.findIndex(_ => _.includes(`${name}=`))
     if (i !== -1) {
