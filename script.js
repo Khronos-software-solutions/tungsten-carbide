@@ -1,27 +1,28 @@
-const getCookie = (name) => {
-    let c = document.cookie.decodeURI().split(';')
-    let i = c.findIndex(_ => _.includes(`${name}=`))
-    if (i !== -1) {
-        return c[i].slice(c[i].indexOf('=') + 1)
-    } else {
-        console.warn('cookie does not exist')
-        return 'error'
+const setCookie = (n, v, ds) => {
+    var e = ''
+    if (ds) {
+        var d = new Date()
+        d.setTime(d.getTime() + (ds*24*60*60*1000))
+        e = `;expires=${d.toUTCString()}` // Expiration date
     }
+    document.cookie = `${n}=${(v||'')}${e};path=/;`
 }
 
-const setCookie = (name, data) => {
-    let c = document.cookie.decodeURI().split(';')
-    
-    let i = c.findIndex(_ => _.includes(`${name}=`))
-    if (i !== -1) {
-        c[i] = `${name}=${data}`
-        console.log(c.join(';'))
-        document.cookie = c.join(';')
-    } else {
-        c.concat(`${name}=${data}`)
-        console.log(c.join(';'))
-        document.cookie = c.join(';')
+const getCookie = (n) => {
+    var nEQ = `${n}=`;
+    var ca = document.cookie.split(';')
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i]
+        while (c.charAt(0)==' ') c = c.substring(1,c.length)
+        if (c.indexOf(nEQ) == 0) return c.substring(nEQ.length,c.length)
     }
+    return null;
 }
 
-document.cookie = 'init=true;hallo=mongool;waarom=kijk;je=naar;de=cookies'
+const setDarkMode = () => {
+    if (getCookie('darkmode') !== 'false') {
+        document.querySelectorAll('*').forEach(e => {e.classList.add('dark')}) // Add 'dark' class to all elements
+    } else {
+        document.querySelectorAll('*').forEach(e => {e.classList.contains('dark') ? e.classList.remove('dark') : null}) // Remove 'dark' class from every element that have one
+    }
+} 

@@ -1,0 +1,49 @@
+.pagelist-element {
+    padding: 12px;
+    margin: 20px;
+    background-color: #888;
+    border-radius: 12px;
+    max-width: 75%;
+}
+
+.pagelist-element div {
+    display: inline-block;
+}
+
+.pagescore-pos {
+    color: rgb(70, 177, 70);
+}
+
+.pagescore-neg {
+    color: rgb(156, 11, 11)
+}
+
+.pagescore-neut {
+    color: #fff
+}
+
+.pagelist-title {
+    color: #fff;
+    font-size: large;
+    font-weight: 700;
+}
+
+.pagelist-subtitle {
+    color: #BBB;
+
+}
+
+.tag-container {
+    color: #ccc;
+    font-style: italic;
+}
+
+.tag {
+    font-size: small;
+    font-style: normal;
+    border-radius: 10px;
+    padding: 4px;
+    color: #fff;
+    background-color: rgb(19, 115, 206);
+}
+
