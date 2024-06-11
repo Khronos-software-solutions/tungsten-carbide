@@ -34,23 +34,21 @@ class DarkModeToggle extends HTMLElement {
     }
     connectedCallback() {
         const button = document.createElement('button')
+        const icon = document.createElement('img')
+        icon.width=20
         button.addEventListener('click', () => {
             if (getCookie('darkmode') !== 'false') {
+                
                 setCookie('darkmode', 'false')
             } else {
                 setCookie('darkmode', 'true')
             }
             setDarkMode()
         })
-        const icon = document.createElement('span')
-        icon.classList.add('fa-solid')
-        icon.classList.add('fa-sun-o')
         if (getCookie('darkmode') !== 'false') {
-            icon.classList.remove('fa-sun-o')
-            icon.classList.add('fa-moon-o')
+            icon.href='./assets/sun.svg'
         } else {
-            icon.classList.add('fa-sun-o')
-            icon.classList.remove('fa-moon-o')
+            icon.href='./assets/moon.svg'
         }
         button.appendChild(icon)
         this.shadowRoot.appendChild(button)
@@ -60,5 +58,13 @@ class DarkModeToggle extends HTMLElement {
 customElements.define('darkmode-toggle', DarkModeToggle)
 
 window.onload = () => {
+    $('button').hover(
+        () => {
+            $(this).removeClass('button-out').addClass('button-over')
+        },
+        () => {
+            $(this).removeClass('button-over').addClass('button-out')
+        }
+    )
     setDarkMode()
 }

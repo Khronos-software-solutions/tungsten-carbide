@@ -15,7 +15,7 @@ body {
     margin: 2px;
     padding: 5px; 
     border-radius: 5px;
-    background-color: #333; 
+    background-color: #505050; 
     border: #fff 3px;
 }
 
@@ -30,7 +30,41 @@ body {
 }
 
 .buttons button:hover {
-    animation: button-hover 200.0ms;
+    animation: button-hover 200.0ms ease-in-out;
+    color: #333;
+    background-color: #fff;
+}
+
+@keyframes in {
+    from {
+        color: #fff;
+        background-color: #333;
+    }
+    to {
+        color: #333;
+        background-color: #fff;
+    }
+}
+
+@keyframes in {
+    from {
+        color: #333;
+        background-color: #fff;
+    }
+    to {
+        color: #fff;
+        background-color: #333;
+    }
+}
+
+button.over {
+    animation: in 200ms;
+    color: #fff;
+    background-color: #333;
+}
+
+button.out {
+    animation: out 200ms;
     color: #333;
     background-color: #fff;
 }

@@ -10,7 +10,8 @@ const posts = {
                 "hack",
                 "game",
                 "help",
-                "REEEEEEEEEE"
+                "REEEEEEEEEE",
+                "amogus"
             ],
             answers: [
                 {
