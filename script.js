@@ -26,3 +26,39 @@ const setDarkMode = () => {
         document.querySelectorAll('*').forEach(e => {e.classList.contains('dark') ? e.classList.remove('dark') : null}) // Remove 'dark' class from every element that have one
     }
 } 
+
+class DarkModeToggle extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: 'open' })
+    }
+    connectedCallback() {
+        const button = document.createElement('button')
+        button.addEventListener('click', () => {
+            if (getCookie('darkmode') !== 'false') {
+                setCookie('darkmode', 'false')
+            } else {
+                setCookie('darkmode', 'true')
+            }
+            setDarkMode()
+        })
+        const icon = document.createElement('span')
+        icon.classList.add('fa-solid')
+        icon.classList.add('fa-sun-o')
+        if (getCookie('darkmode') !== 'false') {
+            icon.classList.remove('fa-sun-o')
+            icon.classList.add('fa-moon-o')
+        } else {
+            icon.classList.add('fa-sun-o')
+            icon.classList.remove('fa-moon-o')
+        }
+        button.appendChild(icon)
+        this.shadowRoot.appendChild(button)
+    }
+}
+
+customElements.define('darkmode-toggle', DarkModeToggle)
+
+window.onload = () => {
+    setDarkMode()
+}

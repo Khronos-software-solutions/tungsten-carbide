@@ -9,7 +9,8 @@ const posts = {
             tags: [
                 "hack",
                 "game",
-                "help"
+                "help",
+                "REEEEEEEEEE"
             ],
             answers: [
                 {

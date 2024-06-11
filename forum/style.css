@@ -6,6 +6,7 @@
     max-width: 75%;
 }
 
+
 .pagelist-element div {
     display: inline-block;
 }
@@ -22,21 +23,24 @@
     color: #fff
 }
 
+
 .pagelist-title {
     color: #fff;
     font-size: large;
     font-weight: 700;
 }
 
+
 .pagelist-subtitle {
     color: #BBB;
-
 }
+
 
 .tag-container {
     color: #ccc;
     font-style: italic;
 }
+
 
 .tag {
     font-size: small;
@@ -47,3 +51,22 @@
     background-color: rgb(19, 115, 206);
 }
 
+.pagelist-element.dark {
+    background-color: #444;
+}
+.pagescore.dark {
+    background-color: #444;
+}
+.pagelist-title.dark {
+    color: #fff;
+    background-color: #444;
+}
+.pagelist-subtitle.dark {
+    background-color: #444;
+}
+.upper.dark{
+    background-color: #444;
+}
+.tag-container.dark {
+    background-color: #444;
+}

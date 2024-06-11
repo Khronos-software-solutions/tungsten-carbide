@@ -53,7 +53,8 @@ body {
 }
 
 .dark {
-    background-color: #333;
+    background-color: #111;
+    color: #eee;
 }
 
 .dark-shade1 {

@@ -12,7 +12,15 @@ posts.posts.forEach(element => {
 
     let tagelements = 'no tags'
 
-    if (element.hasOwnProperty("tags") && element.tags.length != 0) {
+    if (!element.hasOwnProperty('title')) {
+        element.title = 'Untitled Post'
+    }
+
+    if (!element.hasOwnProperty('body')) {
+        element.body = ''
+    }
+
+    if (element.hasOwnProperty('tags') && element.tags.length != 0) {
         tagelements = ''
         element.tags.forEach(tag => {tagelements += `<div class="tag">${tag}</div>&nbsp;`})
     }
@@ -20,7 +28,7 @@ posts.posts.forEach(element => {
     pagelist.innerHTML = pagelist.innerHTML + `\n
     <div class="pagelist-element">
         <div class="upper">
-            <div class="pagelist-title">${element.title}</div>&nbsp;·&nbsp;<div class="pagescore-${s}">${element.score}</div>&nbsp;·&nbsp;<div class="tag-container">${tagelements}</div></div><br>
+            <div class="pagelist-title">${element.title}</div>&nbsp;·&nbsp;<div class="pagescore pagescore-${s}">${element.score}</div>&nbsp;·&nbsp;<div class="tag-container">${tagelements}</div></div><br>
         <div class="lower">
             <div class="pagelist-subtitle">${element.body.slice(0,50)}...</div>
         </div>
