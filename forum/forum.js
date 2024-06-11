@@ -19,6 +19,10 @@ posts.posts.forEach(element => {
     if (!element.hasOwnProperty('body')) {
         element.body = ''
     }
+    
+    if (element.answers.length == 0) {
+
+    }
 
     if (element.hasOwnProperty('tags') && element.tags.length != 0) {
         tagelements = ''
@@ -28,7 +32,7 @@ posts.posts.forEach(element => {
     pagelist.innerHTML = pagelist.innerHTML + `\n
     <div class="pagelist-element">
         <div class="upper">
-            <div class="pagelist-title">${element.title}</div>&nbsp;·&nbsp;<div class="pagescore pagescore-${s}">${element.score}</div>&nbsp;·&nbsp;<div class="tag-container">${tagelements}</div></div><br>
+            <div class="pagelist-title">${element.title}</div>&nbsp;·&nbsp;<div class="pagescore pagescore-${s}">${element.score}</div>&nbsp;·&nbsp;<div class="tag-container">${tagelements}</div>&nbsp;·&nbsp;<div>${answercount}</div></div><br>
         <div class="lower">
             <div class="pagelist-subtitle">${element.body.slice(0,50)}...</div>
         </div>

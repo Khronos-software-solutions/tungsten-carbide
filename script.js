@@ -58,13 +58,5 @@ class DarkModeToggle extends HTMLElement {
 customElements.define('darkmode-toggle', DarkModeToggle)
 
 window.onload = () => {
-    $('button').hover(
-        () => {
-            $(this).removeClass('button-out').addClass('button-over')
-        },
-        () => {
-            $(this).removeClass('button-over').addClass('button-out')
-        }
-    )
     setDarkMode()
 }
