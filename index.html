@@ -4,20 +4,23 @@
   <title>TBI</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <script src="https://kit.fontawesome.com/8267d98fff.js" crossorigin="anonymous"></script>
-  <script src="./lib/jquery-3.7.1.js"></script>
+  <script type="module">
+    import {quotes} from './quotes.js'
+    document.getElementById('quote').innerHTML = quotes[Math.floor(Math.random() * quotes.length)]
+  </script>
 </head>
 
 <body>
-  <div class="main">
-    <center>
+  <div style="height: 100%;" class="main">
+    <div style="height: 100%;display: flex;justify-content: center;align-items: center;flex-direction: column;">
       <h1>Welcome to Tungsten-Carbide</h1>
-      <br>
+      <span style="color: #777; padding-bottom: 12px; font-size: 0.90rem;"><i id="quote"></i></span>
       <div class="buttons">
         <button onclick="window.location = './forum'">Forums</button>
-        <button onclick="window.location = './ask'">Search</button>
+        <button onclick="window.location = './ask'">Ask a question</button>
         <button onclick="window.location = './login'">Login</button>
       </div>
-    </center>
+    </div>
   </div>
   <script src="./script.js"></script>
 </body>

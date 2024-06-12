@@ -51,6 +51,14 @@
     background-color: rgb(19, 115, 206);
 }
 
+.answercount {
+    color: #fff
+}
+
+.answercount.dark {
+    background-color: #444;
+}
+
 .pagelist-element.dark {
     background-color: #444;
 }

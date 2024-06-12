@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page not found</title>
+        <script type="module">
+            import {errorQuotes} from './quotes.js'
+            window.onload = () => {document.getElementById('quote').innerHTML = errorQuotes[Math.floor(Math.random() * errorQuotes.length)]}
+        </script>
+    </head>
+    <body>
+        <h1>"<i id="quote">string.replaceAll('bug','feature')</i>"</h1>
+        <div>
+            We couldn't find this page.<br>
+            Have you entered a valid post id?
+        </div>
+    </body>
+</html>

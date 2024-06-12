@@ -9,13 +9,23 @@
 </head>
 
 <body>
-  <script type="module" src="./forum.js"></script>
-  <button class= "home_button" onclick="window.location = '../index.html'">Home</button>
-  <h1>Welcome to the forums!</h1><darkmode-toggle></darkmode-toggle>
-  <p>In order to make a post or react to a post, we use an email system. This website serves as a database, so every reaction and post will be reviewed before placement on our website. </p>
-  <div id="page-list">
-
+  <script type="module" src="./forum.mjs"></script>
+  <div class="top-bar" style="display: flex; width: auto; justify-content: space-between; padding: 7px">
+    <button class="home_button" onclick="window.location = '../index.html'">Home</button>
+    <span class="theme-toggle" style="padding: 6px" id="theme-toggle" onclick="updateButton()">
+      <span id="theme-icon" class="icon-theme-light" style="width: 20px; height: 20px;" ></span>
+      Toggle theme
+    </span>
   </div>
+  <h1>Welcome to the forums!</h1>
+  <p>In order to make a post or react to a post, you will need to send us an email.<br> 
+    This website serves as a database, so every reaction and post will be reviewed before placement on the forum.<br>
+    <a href="../ask/">Click here to learn how to post</a></p>
+  <div><input class="searchbar" id="searchbar" placeholder="Search..." onkeypress="submit(event)"></div>
+  <div id="page-list">
+    
+  </div>
+  <script src="./script.js"></script>
 </body>
 
 </html>

@@ -2,12 +2,16 @@ html {
     height: 100%;
     width: 100%;
     font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
 }
 
 body {
     height: 100%;
     width: 100%;
     font-family: Arial, Helvetica, sans-serif; 
+    padding: 0;
+    margin: 0;
 }
 
 .buttons button {
@@ -35,40 +39,21 @@ body {
     background-color: #fff;
 }
 
-@keyframes in {
-    from {
-        color: #fff;
-        background-color: #333;
-    }
-    to {
-        color: #333;
-        background-color: #fff;
-    }
-}
-
-@keyframes in {
-    from {
-        color: #333;
-        background-color: #fff;
-    }
-    to {
-        color: #fff;
-        background-color: #333;
-    }
-}
-
-button.over {
-    animation: in 200ms;
+.home_button {
+    background-color: rgba(0,0,0,0);
     color: #fff;
-    background-color: #333;
+    font-size: medium;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    gap: .25rem;
+    justify-content: center;
 }
 
-button.out {
-    animation: out 200ms;
-    color: #333;
-    background-color: #fff;
+.home_button:hover {
+    background-color: rgba(255,255,255,0.3);
 }
-
 
 .body_dark {
     background-color: rgb(74, 70, 70);
@@ -87,10 +72,52 @@ button.out {
 }
 
 .dark {
-    background-color: #111;
+    background-color: #222;
     color: #eee;
+}
+
+.searchbar {
+    padding: 7px;
+    border-radius: 7px;
+    border-color: #fff;
 }
 
 .dark-shade1 {
     background-color: #555;
+}
+
+.icon-theme-light {
+    mask-image: url('./assets/theme-light.svg');
+    mask-repeat: no-repeat;
+    mask-position: center;
+    background-color: #eee;
+}
+
+.icon-theme-dark {
+    mask-image: url('/assets/theme-dark.svg');  
+    mask-repeat: no-repeat;
+    mask-position: center;
+    background-color: #eee;
+}
+
+.theme-toggle {
+    align-items: center; 
+    border-radius: 5px;
+    display: flex;
+    gap: .25rem;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(255,255,255,0.3);
+}
+
+.top-bar {
+    background-color: #555;
+    color: #fff;
+}
+
+.top-bar.dark {
+    background-color: #333;
+    color: #fff;
 }
