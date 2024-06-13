@@ -53,7 +53,7 @@ const updatePosts = (term) => {
         }
 
         pagelist.innerHTML = pagelist.innerHTML + `\n
-        <div class="pagelist-element">
+        <div class="pagelist-element" onclick="goToPost(${element.post_id})">
             <div class="upper">
                 <div class="pagelist-title">${element.title}</div>&nbsp;·&nbsp;<div class="pagescore pagescore-${s}">${element.score}</div>&nbsp;·&nbsp;<div class="answercount">${answercount}</div>&nbsp;·&nbsp;<div class="tag-container">${tagelements}</div></div><br>
             <div class="lower">

@@ -1,27 +1,13 @@
-import posts from "../pages.js"
-
-const findGetParameter = (parameterName) => {
-  let result = null
-  location.search
-    .substring(1)
-    .split("&")
-    .forEach(function (item) {
-      if (item.split("=")[0] === parameterName) result = decodeURIComponent(item.split("=")[1]);
-    });
-  return result;
-}
-
-window.findGetParameter = findGetParameter
+import posts from "../posts.mjs"
 
 window.onload = () => {
-  if (typeof (findGetParameter('id')) != ('number' || 'string')) {
-    console.log('invalid')
+  let postId = getCookie('nextpost')
+  let post = posts.posts.find(e => e.post_id == postId)
+
+  if (post == undefined) {
+    window.location = '../4xx'
+    return
   }
 
-  const post_id = findGetParameter('id')
-
-  if (posts.posts.find(element => element.post_id == post_id) == undefined) {
-    console.log('not found')
-  }
-
+  document.getElementById('postbody').innerHTML = post.body
 }

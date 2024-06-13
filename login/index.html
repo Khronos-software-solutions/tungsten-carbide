@@ -3,26 +3,40 @@
 <head>
   <title>TBI-login</title>
   <link href="../style.css" rel="stylesheet" type="text/css" />
-  <script src="./lib/jquery-3.7.1.js"></script>
-
 </head>
 
 <body>
   <script src="../script.js"></script>
-  <button class= "home_button"onclick="window.location = 'index.html'">Home</button>
-  <h1>Login:</h1>
-  <div class="Login_container">
-     <form>
-    <label for="username">Username:</label><br>
-    <input type="text" id="username_input"name="username"><br>
-    <label for="password">Password:</label><br>
-    <input type="password"  id="password_input"name="password"><br>
-    <input type="submit">
-
-  </form>
+  <button class= "home_button"onclick="window.location = '../index.html'">Home</button>
+  <h3>Login:</h3>
+  <div class="login-container">
+    <form id="loginform" onsubmit="login()">
+      <label for="username">Username:</label>
+      <input type="text" name="username"><br>
+      <label for="password">Password:</label>
+      <input type="password"  id="password_input"name="password"><br>
+      <input type="submit">
+    </form>
   </div>
- 
-
+  <h3>Or register:</h3>
+  <div class="register-container">
+    <form id="registerform" onsubmit="register()">
+      <label for="firstname">First name:</label>
+      <input required="true" type="text" name="firstname"><br>
+      <label for="lastname">Last name:</label>
+      <input required="true" type="text" name="lastname"><br>
+      <label for="email">Email:</label>
+      <input required="true" type="email" name="email"><br>
+      <label for="username">Username:</label>
+      <input required="true" type="text" name="username"><br>
+      <label for="password">Password:</label>
+      <input required="true" type="password" name="password"><br>
+      <label for="confirm-password">Confirm password:</label>
+      <input required="true" type="password" name="confirm-password"><br>
+      <input type="submit" value="Register">
+    </form>
+  </div>
+  <script src="./login.js"></script>
 </body>
 
 </html>

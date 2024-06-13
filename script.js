@@ -19,6 +19,12 @@ const getCookie = (n) => {
   return null;
 }
 
+const deleteCookie = (n) => {
+  if( getCookie(n) ) {
+    document.cookie = n + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;SameSite=None";
+  }
+}
+
 const setDarkMode = () => {
   if (window.localStorage.getItem('darkmode') !== 'false') {
     document.body.classList.add('dark')
@@ -43,6 +49,11 @@ const updateButton = () => {
     t.classList.remove('icon-theme-light')
     t.classList.add('icon-theme-dark')
   }
+}
+
+const goToPost = (id) => {
+  setCookie('nextpost', id)
+  window.location = '../post/'
 }
 
 window.onload = () => {
