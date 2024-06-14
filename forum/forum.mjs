@@ -75,4 +75,5 @@ const fetchPosts = () => {
 
 }
 
+window.updatePosts = updatePosts
 window.submit = submit
