@@ -9,5 +9,17 @@ window.onload = () => {
     return
   }
 
-  document.getElementById('postbody').innerHTML = post.body
+  const postbody = document.getElementById('postbody')
+  postbody.innerHTML = postbody.innerHTML + `<h1>${post.title}</h1><br>${post.body}`
+
+  const answers = document.getElementById('answers')
+  if (post.answers && post.answers.length != 0) {
+    post.answers.forEach(e => {
+      answers.innerHTML = answers.innerHTML + e.body
+    })
+  } else {
+    answers.innerHTML = "<h3>No answers</h3>"
+  }
+  hljs.highlightAll()
+  setDarkMode()
 }

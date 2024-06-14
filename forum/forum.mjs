@@ -71,6 +71,8 @@ const submit = (event) => {
     }
 }
 
-updatePosts('')
+const fetchPosts = () => {
+
+}
 
 window.submit = submit

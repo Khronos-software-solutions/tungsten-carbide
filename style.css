@@ -76,6 +76,10 @@ body {
     color: #eee;
 }
 
+pre code span.dark {
+    background-color: #303030;
+}
+
 .searchbar {
     padding: 7px;
     border-radius: 7px;

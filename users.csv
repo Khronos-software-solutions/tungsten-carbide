@@ -1,2 +1,2 @@
-id,realname,username,email,firstdate,leverage,passMD5
+id,realname,username,email,firstdate,leverage,passSHA256
 1,Ties Heijnis,TungstenGamut,heijnisties@outlook.com,Jun 13 2024,admin,d131dd02c5e6eec4

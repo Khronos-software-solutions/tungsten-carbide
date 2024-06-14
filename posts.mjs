@@ -4,14 +4,10 @@ const posts = {
       title: "lorem ipsus",
       post_id: 0,
       user_id: 1223,
-      body: `duikj`,
-      score: 2,
+      body: `Ambatakum`,
+      score: -22,
       tags: [
-        "hack",
-        "game",
-        "help",
-        "REEEEEEEEEE",
-        "amogus"
+        "bussin"
       ],
       answers: [
         {
@@ -236,7 +232,7 @@ const posts = {
                   }
               });
           }
-          </code><.pre>
+          </code></pre>
           It's easier to write code using callbacks than it may seem. After all, JavaScript in the browser is heavily event-driven (DOM events). Receiving the Ajax response is nothing else but an event. Difficulties could arise when you have to work with third-party code, but most problems can be solved by just thinking through the application flow.`
         }
       ]

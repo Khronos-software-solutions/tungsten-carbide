@@ -4,7 +4,9 @@
   <title>TBI-forums</title>
   <link href="../style.css" rel="stylesheet" type="text/css" />
   <link href="./style.css" rel="stylesheet" type="text/css" />
-  <script src="https://kit.fontawesome.com/8267d98fff.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../lib/styles/default.css">
+  <script src="../lib/jquery.min.js"></script>
+  <script src="../lib/highlight.min.js"></script>
   <script src="../script.js"></script>
 </head>
 
@@ -21,6 +23,7 @@
     <h1>Welcome to the forums!</h1>
     <p>In order to make a post or react to a post, you will need to send us an email.<br> 
       This website serves as a database, so every reaction and post will be reviewed before placement on the forum.<br>
+      
       <a href="../ask/">Click here to learn how to post</a></p>
     <div><input class="searchbar" id="searchbar" placeholder="Search..." onkeypress="submit(event)"></div>
   </div>
@@ -28,6 +31,7 @@
     
   </div>
   <script src="./script.js"></script>
+  <script>hljs.highlightAll();</script>
 </body>
 
 </html>
