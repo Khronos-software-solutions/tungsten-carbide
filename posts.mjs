@@ -249,6 +249,90 @@ const posts = {
       body: "dolor",
       score: -69420
     },
+
+    {
+      title: "How do I install my CPU",
+      post_id: 4,
+      user_id: 1001,
+      body: `I just bought a new PC, and I am already stuck on how to install the CPU, can anyone help?`,
+      score: -204,
+      tags: [
+        "Hardware",
+         "Computerbuiling",
+         "frequently asked questions",
+         "beginner computer builder"
+      ],
+      answers: [
+        {
+          user_id: 1023,
+          body: "Go see a tutorial",
+          score: 69
+        },
+        {
+          user_id: 1030,
+          body: "shall I google it for you",
+          score: 24577
+        },
+        {
+          user_id: 1030,
+          body: "I recommend you see a tutorial for this issue, it is a delicate process",
+          score: 96594
+        }
+      ]
+    },
+    {
+      title: "Where should I put my GPU",
+      post_id: 5,
+      user_id: 1002,
+      body: `I am installign my GPU, but I have two PCI-e slots, where should I put it?`,
+      score: 5890,
+      tags: [
+        "Hardware",
+        "GPUissues",
+        "Frequently asked questions"
+      ],
+      answers: [
+        {
+          user_id: 1030,
+          body: "ALsways put your GPU in the upper slot, the most bottom slot suffers from lag and besides, it uses most of the thime a lower bandwidth",
+          score: 697
+        },
+        {
+          user_id: 1030,
+          body: "Nah, I use iGPU",
+          score: -9999
+        },
+        {
+          title: "Best CPU cooler for 7600x",
+          post_id: 6,
+          user_id: 1001,
+          body: `I am about to buy a computer with a ryzen 7600x, what cooler should I buy alongside?`,
+          score: 199,
+          tags: [
+            "Hardware",
+             "Computerbuiling",
+             "frequently sked questions",
+          ],
+          answers: [
+            {
+              user_id: 1023,
+              body: "A CPU with over 80 watts will require a water cooler, I learned that the hard way",
+              score: 69676
+            },
+            {
+              user_id: 1030,
+              body: "Use a big air cooler like the AK620, or a moderate water cooler",
+              score: 24577
+            },
+            {
+              user_id: 1030,
+              body: "Grill a steak on your CPU",
+              score: 82475929
+            }
+          ]
+        }
+      ]
+    }
   ]
 }
 
