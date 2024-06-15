@@ -311,7 +311,7 @@ const posts = {
           tags: [
             "Hardware",
              "Computerbuiling",
-             "frequently sked questions",
+             "frequently asked questions",
           ],
           answers: [
             {
@@ -329,6 +329,125 @@ const posts = {
               body: "Grill a steak on your CPU",
               score: 82475929
             }
+          ]
+        },
+        {
+          title: "Is DDR5 worth it",
+          post_id: 7,
+          user_id: 1428,
+          body: `I am about to buy a 13th gen intel motherboard, but should I go for DDR5 or just DDR4?`,
+          score: 20,
+          tags: [
+            "Hardware",
+            "PCpart", 
+            "financial"
+          ],
+          answers: [
+            {
+              user_id: 9901,
+              body: "I would go with DDR5 just for futureproofing",
+              score: 10
+            },
+            {
+              user_id: 2234,
+              body: "Depends, If you want a cheaper computer, DDR4 is the best option, but DDR5 is better for futureproofing",
+              score: 66
+            },
+            {
+              user_id: 6685,
+              body: "Faster is better, go for DDR5",
+              score: 5
+            },
+          ]
+        },
+        {
+          title: "GPU noise",
+          post_id: 8,
+          user_id: 8795,
+          body: `My GPU is making alot of noise like a lawnmower, Is that normal, It does work`,
+          score: 305,
+          tags: [
+            "Hardware",
+            "gpu",
+            "coilwhine"
+          ],
+          answers: [
+            {
+              user_id: 5301,
+              body: "What you have is something called coilwhine, It is normal and it does not affect performance, however, if you are hindered by the noise, than you can google some trick to limit the damage.",
+              score: 209
+            },
+            {
+              user_id: 1230,
+              body: "It is normal, you can put rubber bushing between the case and your GPu to limit noise.",
+              score: 12
+            },
+            {
+              user_id: 1009,
+              body: "Just buy a better gpu",
+              score: -5
+            },
+            {
+              user_id: 1010,
+              body: "It usually dissipates over time, don't you worry",
+              score: 13
+            },
+          ]
+        },
+        {
+          title: "Do you need Dram for better Nvme performance",
+          post_id: 9,
+          user_id: 3334,
+          body: `I am about to buy a new drive for my editing rig, do I need Dram for my SSD?`,
+          score: 367,
+          tags: [
+            "Hardware",
+            "storage",
+            "computerbuilding"
+          ],
+          answers: [
+            {
+              user_id: 2002,
+              body: "Yes, for editing and large files Dram is better, it will give better responiveness and faster random speeds",
+              score: 439
+            },
+          ]
+        },
+        {
+          title: "How much PC fans",
+          post_id: 9,
+          user_id: 9785,
+          body: `I am going to ugrande my case from my open-air test bench, How many case fans do I need`,
+          score: 698,
+          tags: [
+            "Hardware",
+          ],
+          answers: [
+            {
+              user_id: 9971,
+              body: "At least one, but the best thing to do is have one exhaust fan for every intake fan, or have more intake than exhaust",
+              score: 200
+            },
+            {
+              user_id: 9888,
+              body: "Have at least one fan",
+              score: 5
+            },
+            {
+              user_id: 6246,
+              body: "Depends on case size, Bigger cases sometimes perform better with negative airflow and micro cases also like more negative airflow",
+              score: 15
+            },
+            {
+              user_id: 3344,
+              body: "I mostly depends on the cooling solutions for your GPU and CPU",
+              score: 4
+            },
+            {
+              user_id: 5893,
+              body: "Just use all case fan mounts, and you'll be good to go",
+              score: -2
+            },
           ]
         }
       ]
