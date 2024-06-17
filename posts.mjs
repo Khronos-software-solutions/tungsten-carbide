@@ -249,7 +249,6 @@ const posts = {
       body: "dolor",
       score: -69420
     },
-
     {
       title: "How do I install my CPU",
       post_id: 4,
@@ -302,7 +301,9 @@ const posts = {
           body: "Nah, I use iGPU",
           score: -9999
         },
-        {
+      ]
+    },
+    {
           title: "Best CPU cooler for 7600x",
           post_id: 6,
           user_id: 1001,
@@ -452,7 +453,6 @@ const posts = {
         }
       ]
     }
-  ]
-}
+
 
 export default posts
