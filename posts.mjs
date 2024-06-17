@@ -801,6 +801,7 @@ This goes to show that even mature modern compilers can vary wildly in their abi
         }
       ]
     }
-
+  ]
+}
 
 export default posts
