@@ -238,10 +238,130 @@ const posts = {
       ]
     },
     {
-      title: "mock2",
+      title: "What is a <code>NullPointerException</code>, and how do I fix it?",
+      score: 209,
       post_id: 2,
-      body: "ipsum",
-      score: 696969,
+      body: `What are Null Pointer Exceptions (<code>java.lang.NullPointerException</code>) and what causes them?
+
+      What methods/tools can be used to determine the cause so that you stop the exception from causing the program to terminate prematurely?`,
+      tags: [
+        "java",
+        "nullpointerexception"
+      ],
+      answers: [
+        {
+          body: `There are two overarching types of variables in Java:
+
+          1. <i>Primitives</i>: variables that contain data. If you want to manipulate the data in a primitive variable you can manipulate that variable directly. By convention primitive types start with a lowercase letter. For example variables of type <code>int</code> or <code>char</code> are primitives.
+      
+          2. <i>References</i>: variables that contain the memory address of an <code>Object</code> i.e. variables that refer to an <code>Object</code>. If you want to manipulate the <code>Object</code> that a reference variable refers to you must dereference it. Dereferencing usually entails using <code>.</code> to access a method or field, or using <code>[</code> to index an array. By convention reference types are usually denoted with a type that starts in uppercase. For example variables of type <code>Object</code> are references.
+      
+      Consider the following code where you declare a variable of primitive type int and don't initialize it:
+      <pre><code>
+      int x;
+      int y = x + x;
+      </code></pre>
+      These two lines will crash the program because no value is specified for x and we are trying to use x's value to specify y. All primitives have to be initialized to a usable value before they are manipulated.
+      
+      Now here is where things get interesting. Reference variables can be set to null which means "I am referencing nothing". You can get a null value in a reference variable if you explicitly set it that way, or a reference variable is uninitialized and the compiler does not catch it (Java will automatically set the variable to null).
+      
+      If a reference variable is set to null either explicitly by you or through Java automatically, and you attempt to dereference it you get a NullPointerException.
+      
+      The NullPointerException (NPE) typically occurs when you declare a variable but did not create an object and assign it to the variable before trying to use the contents of the variable. So you have a reference to something that does not actually exist.
+      
+      Take the following code:
+      <pre><code>
+      Integer num;
+      num = new Integer(10);
+      </code></pre>
+      The first line declares a variable named num, but it does not actually contain a reference value yet. Since you have not yet said what to point to, Java sets it to null.
+      
+      In the second line, the new keyword is used to instantiate (or create) an object of type Integer, and the reference variable num is assigned to that Integer object.
+      
+      If you attempt to dereference num before creating the object you get a NullPointerException. In the most trivial cases, the compiler will catch the problem and let you know that "num may not have been initialized," but sometimes you may write code that does not directly create the object.
+      
+      For instance, you may have a method as follows:
+      <pre><code>
+      public void doSomething(SomeObject obj) {
+         // Do something to obj, assumes obj is not null
+         obj.myMethod();
+      }
+      </code></pre>
+      In which case, you are not creating the object obj, but rather assuming that it was created before the doSomething() method was called. Note, it is possible to call the method like this:
+      <pre><code>
+      doSomething(null);
+      </code></pre>
+      In which case, obj is null, and the statement obj.myMethod() will throw a NullPointerException.
+      
+      If the method is intended to do something to the passed-in object as the above method does, it is appropriate to throw the NullPointerException because it's a programmer error and the programmer will need that information for debugging purposes.
+      
+      In addition to NullPointerExceptions thrown as a result of the method's logic, you can also check the method arguments for null values and throw NPEs explicitly by adding something like the following near the beginning of a method:
+      <pre><code>
+      // Throws an NPE with a custom error message if obj is null
+      Objects.requireNonNull(obj, "obj must not be null");
+      </code></pre>
+      Note that it's helpful to say in your error message clearly which object cannot be null. The advantage of validating this is that 1) you can return your own clearer error messages and 2) for the rest of the method you know that unless obj is reassigned, it is not null and can be dereferenced safely.
+      
+      Alternatively, there may be cases where the purpose of the method is not solely to operate on the passed in object, and therefore a null parameter may be acceptable. In this case, you would need to check for a null parameter and behave differently. You should also explain this in the documentation. For example, doSomething() could be written as:
+      <pre><code>
+      /**
+        * @param obj An optional foo for ____. May be null, in which case
+        *  the result will be ____.
+        */
+      public void doSomething(SomeObject obj) {
+          if(obj == null) {
+             // Do something
+          } else {
+             // Do something else
+          }
+      }
+      </code></pre>
+      Finally, How to pinpoint the exception & cause using Stack Trace
+      
+          What methods/tools can be used to determine the cause so that you stop the exception from causing the program to terminate prematurely?
+      
+      Sonar with find bugs can detect NPE. Can sonar catch null pointer exceptions caused by JVM Dynamically
+      
+      Now Java 14 has added a new language feature to show the root cause of NullPointerException. This language feature has been part of SAP commercial JVM since 2006.
+      
+      In Java 14, the following is a sample NullPointerException Exception message:
+      <pre><code>
+          in thread "main" java.lang.NullPointerException: Cannot invoke "java.util.List.size()" because "list" is null
+      </code></pre>
+      List of situations that cause a NullPointerException to occur
+      
+      Here are all the situations in which a NullPointerException occurs, that are directly* mentioned by the Java Language Specification:<br>
+      
+        - Accessing (i.e. getting or setting) an instance field of a null reference. (static fields don't count!)<br>
+        - Calling an instance method of a null reference. (static methods don't count!)<br>
+        - <code>throw null;</code><br>
+        - Accessing elements of a null array.<br>
+        - Synchronising on null - synchronized (someNullReference) { ... }<br>
+        - Any integer/floating point operator can throw a NullPointerException if one of its operands is a boxed null reference<br>
+        - An unboxing conversion throws a <code>NullPointerException</code> if the boxed value is <code>null</code>.<br>
+        - Calling super on a null reference throws a NullPointerException. If you are confused, this is talking about qualified superclass constructor invocations:
+      <pre><code>
+      class Outer {
+          class Inner {}
+      }
+      class ChildOfInner extends Outer.Inner {
+          ChildOfInner(Outer o) { 
+              o.super(); // if o is null, NPE gets thrown
+          }
+      }
+      </code></pre>
+          Using a for (element : iterable) loop to loop through a null collection/array.
+      
+          <code>switch (foo) { ... }</code> (whether its an expression or statement) can throw a <code>NullPointerException</code> when foo is null.
+      
+          <code>foo.new SomeInnerClass()</code> throws a NullPointerException when foo is null.
+      
+          Method references of the form name1::name2 or primaryExpression::name throws a NullPointerException when evaluated when name1 or primaryExpression evaluates to null.
+      
+          a note from the JLS here says that, someInstance.someStaticMethod() doesn't throw an NPE, because someStaticMethod is static, but someInstance::someStaticMethod still throw an NPE!
+      `
+        }
+      ]
     },
     {
       title: "mock3",
