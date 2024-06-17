@@ -461,10 +461,141 @@ This goes to show that even mature modern compilers can vary wildly in their abi
               });
           }
           </code></pre>
-          It's easier to write code using callbacks than it may seem. After all, JavaScript in the browser is heavily event-driven (DOM events). Receiving the Ajax response is nothing else but an event. Difficulties could arise when you have to work with third-party code, but most problems can be solved by just thinking through the application flow.`,
-          score: 304,
+          It's easier to write code using callbacks than it may seem. After all, JavaScript in the browser is heavily event-driven (DOM events). Receiving the Ajax response is nothing else but an event. Difficulties could arise when you have to work with third-party code, but most problems can be solved by just thinking through the application flow.`
         }
       ]
+    },
+    {
+      title: "What is a <code>NullPointerException</code>, and how do I fix it?",
+      score: 209,
+      post_id: 2,
+      body: `What are Null Pointer Exceptions (<code>java.lang.NullPointerException</code>) and what causes them?
+
+      What methods/tools can be used to determine the cause so that you stop the exception from causing the program to terminate prematurely?`,
+      tags: [
+        "java",
+        "nullpointerexception"
+      ],
+      answers: [
+        {
+          body: `There are two overarching types of variables in Java:
+
+          1. <i>Primitives</i>: variables that contain data. If you want to manipulate the data in a primitive variable you can manipulate that variable directly. By convention primitive types start with a lowercase letter. For example variables of type <code>int</code> or <code>char</code> are primitives.
+      
+          2. <i>References</i>: variables that contain the memory address of an <code>Object</code> i.e. variables that refer to an <code>Object</code>. If you want to manipulate the <code>Object</code> that a reference variable refers to you must dereference it. Dereferencing usually entails using <code>.</code> to access a method or field, or using <code>[</code> to index an array. By convention reference types are usually denoted with a type that starts in uppercase. For example variables of type <code>Object</code> are references.
+      
+      Consider the following code where you declare a variable of primitive type int and don't initialize it:
+      <pre><code>
+      int x;
+      int y = x + x;
+      </code></pre>
+      These two lines will crash the program because no value is specified for x and we are trying to use x's value to specify y. All primitives have to be initialized to a usable value before they are manipulated.
+      
+      Now here is where things get interesting. Reference variables can be set to null which means "I am referencing nothing". You can get a null value in a reference variable if you explicitly set it that way, or a reference variable is uninitialized and the compiler does not catch it (Java will automatically set the variable to null).
+      
+      If a reference variable is set to null either explicitly by you or through Java automatically, and you attempt to dereference it you get a NullPointerException.
+      
+      The NullPointerException (NPE) typically occurs when you declare a variable but did not create an object and assign it to the variable before trying to use the contents of the variable. So you have a reference to something that does not actually exist.
+      
+      Take the following code:
+      <pre><code>
+      Integer num;
+      num = new Integer(10);
+      </code></pre>
+      The first line declares a variable named num, but it does not actually contain a reference value yet. Since you have not yet said what to point to, Java sets it to null.
+      
+      In the second line, the new keyword is used to instantiate (or create) an object of type Integer, and the reference variable num is assigned to that Integer object.
+      
+      If you attempt to dereference num before creating the object you get a NullPointerException. In the most trivial cases, the compiler will catch the problem and let you know that "num may not have been initialized," but sometimes you may write code that does not directly create the object.
+      
+      For instance, you may have a method as follows:
+      <pre><code>
+      public void doSomething(SomeObject obj) {
+         // Do something to obj, assumes obj is not null
+         obj.myMethod();
+      }
+      </code></pre>
+      In which case, you are not creating the object obj, but rather assuming that it was created before the doSomething() method was called. Note, it is possible to call the method like this:
+      <pre><code>
+      doSomething(null);
+      </code></pre>
+      In which case, obj is null, and the statement obj.myMethod() will throw a NullPointerException.
+      
+      If the method is intended to do something to the passed-in object as the above method does, it is appropriate to throw the NullPointerException because it's a programmer error and the programmer will need that information for debugging purposes.
+      
+      In addition to NullPointerExceptions thrown as a result of the method's logic, you can also check the method arguments for null values and throw NPEs explicitly by adding something like the following near the beginning of a method:
+      <pre><code>
+      // Throws an NPE with a custom error message if obj is null
+      Objects.requireNonNull(obj, "obj must not be null");
+      </code></pre>
+      Note that it's helpful to say in your error message clearly which object cannot be null. The advantage of validating this is that 1) you can return your own clearer error messages and 2) for the rest of the method you know that unless obj is reassigned, it is not null and can be dereferenced safely.
+      
+      Alternatively, there may be cases where the purpose of the method is not solely to operate on the passed in object, and therefore a null parameter may be acceptable. In this case, you would need to check for a null parameter and behave differently. You should also explain this in the documentation. For example, doSomething() could be written as:
+      <pre><code>
+      /**
+        * @param obj An optional foo for ____. May be null, in which case
+        *  the result will be ____.
+        */
+      public void doSomething(SomeObject obj) {
+          if(obj == null) {
+             // Do something
+          } else {
+             // Do something else
+          }
+      }
+      </code></pre>
+      Finally, How to pinpoint the exception & cause using Stack Trace
+      
+          What methods/tools can be used to determine the cause so that you stop the exception from causing the program to terminate prematurely?
+      
+      Sonar with find bugs can detect NPE. Can sonar catch null pointer exceptions caused by JVM Dynamically
+      
+      Now Java 14 has added a new language feature to show the root cause of NullPointerException. This language feature has been part of SAP commercial JVM since 2006.
+      
+      In Java 14, the following is a sample NullPointerException Exception message:
+      <pre><code>
+          in thread "main" java.lang.NullPointerException: Cannot invoke "java.util.List.size()" because "list" is null
+      </code></pre>
+      List of situations that cause a NullPointerException to occur
+      
+      Here are all the situations in which a NullPointerException occurs, that are directly* mentioned by the Java Language Specification:<br>
+      
+        - Accessing (i.e. getting or setting) an instance field of a null reference. (static fields don't count!)<br>
+        - Calling an instance method of a null reference. (static methods don't count!)<br>
+        - <code>throw null;</code><br>
+        - Accessing elements of a null array.<br>
+        - Synchronising on null - synchronized (someNullReference) { ... }<br>
+        - Any integer/floating point operator can throw a NullPointerException if one of its operands is a boxed null reference<br>
+        - An unboxing conversion throws a <code>NullPointerException</code> if the boxed value is <code>null</code>.<br>
+        - Calling super on a null reference throws a NullPointerException. If you are confused, this is talking about qualified superclass constructor invocations:
+      <pre><code>
+      class Outer {
+          class Inner {}
+      }
+      class ChildOfInner extends Outer.Inner {
+          ChildOfInner(Outer o) { 
+              o.super(); // if o is null, NPE gets thrown
+          }
+      }
+      </code></pre>
+          Using a for (element : iterable) loop to loop through a null collection/array.
+      
+          <code>switch (foo) { ... }</code> (whether its an expression or statement) can throw a <code>NullPointerException</code> when foo is null.
+      
+          <code>foo.new SomeInnerClass()</code> throws a NullPointerException when foo is null.
+      
+          Method references of the form name1::name2 or primaryExpression::name throws a NullPointerException when evaluated when name1 or primaryExpression evaluates to null.
+      
+          a note from the JLS here says that, someInstance.someStaticMethod() doesn't throw an NPE, because someStaticMethod is static, but someInstance::someStaticMethod still throw an NPE!
+      `
+        }
+      ]
+    },
+    {
+      title: "mock3",
+      post_id: 3,
+      body: "dolor",
+      score: -69420
     },
     {
       title: "How do I install my CPU",
@@ -528,6 +659,8 @@ This goes to show that even mature modern compilers can vary wildly in their abi
           tags: [
             "Hardware",
             "PC building",
+             "Computerbuiling",
+             "frequently asked questions",
           ],
           answers: [
             {
@@ -543,13 +676,131 @@ This goes to show that even mature modern compilers can vary wildly in their abi
             {
               user_id: 1030,
               body: "Grill a steak on your CPU",
-              score: 829
+              score: 82475929
             }
+          ]
+        },
+        {
+          title: "Is DDR5 worth it",
+          post_id: 7,
+          user_id: 1428,
+          body: `I am about to buy a 13th gen intel motherboard, but should I go for DDR5 or just DDR4?`,
+          score: 20,
+          tags: [
+            "Hardware",
+            "PCpart", 
+            "financial"
+          ],
+          answers: [
+            {
+              user_id: 9901,
+              body: "I would go with DDR5 just for futureproofing",
+              score: 10
+            },
+            {
+              user_id: 2234,
+              body: "Depends, If you want a cheaper computer, DDR4 is the best option, but DDR5 is better for futureproofing",
+              score: 66
+            },
+            {
+              user_id: 6685,
+              body: "Faster is better, go for DDR5",
+              score: 5
+            },
+          ]
+        },
+        {
+          title: "GPU noise",
+          post_id: 8,
+          user_id: 8795,
+          body: `My GPU is making alot of noise like a lawnmower, Is that normal, It does work`,
+          score: 305,
+          tags: [
+            "Hardware",
+            "gpu",
+            "coilwhine"
+          ],
+          answers: [
+            {
+              user_id: 5301,
+              body: "What you have is something called coilwhine, It is normal and it does not affect performance, however, if you are hindered by the noise, than you can google some trick to limit the damage.",
+              score: 209
+            },
+            {
+              user_id: 1230,
+              body: "It is normal, you can put rubber bushing between the case and your GPu to limit noise.",
+              score: 12
+            },
+            {
+              user_id: 1009,
+              body: "Just buy a better gpu",
+              score: -5
+            },
+            {
+              user_id: 1010,
+              body: "It usually dissipates over time, don't you worry",
+              score: 13
+            },
+          ]
+        },
+        {
+          title: "Do you need Dram for better Nvme performance",
+          post_id: 9,
+          user_id: 3334,
+          body: `I am about to buy a new drive for my editing rig, do I need Dram for my SSD?`,
+          score: 367,
+          tags: [
+            "Hardware",
+            "storage",
+            "computerbuilding"
+          ],
+          answers: [
+            {
+              user_id: 2002,
+              body: "Yes, for editing and large files Dram is better, it will give better responiveness and faster random speeds",
+              score: 439
+            },
+          ]
+        },
+        {
+          title: "How much PC fans",
+          post_id: 9,
+          user_id: 9785,
+          body: `I am going to ugrande my case from my open-air test bench, How many case fans do I need`,
+          score: 698,
+          tags: [
+            "Hardware",
+          ],
+          answers: [
+            {
+              user_id: 9971,
+              body: "At least one, but the best thing to do is have one exhaust fan for every intake fan, or have more intake than exhaust",
+              score: 200
+            },
+            {
+              user_id: 9888,
+              body: "Have at least one fan",
+              score: 5
+            },
+            {
+              user_id: 6246,
+              body: "Depends on case size, Bigger cases sometimes perform better with negative airflow and micro cases also like more negative airflow",
+              score: 15
+            },
+            {
+              user_id: 3344,
+              body: "I mostly depends on the cooling solutions for your GPU and CPU",
+              score: 4
+            },
+            {
+              user_id: 5893,
+              body: "Just use all case fan mounts, and you'll be good to go",
+              score: -2
+            },
           ]
         }
       ]
     }
-  ]
-}
+
 
 export default posts

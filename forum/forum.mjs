@@ -72,7 +72,7 @@ const submit = (event) => {
 }
 
 const fetchPosts = () => {
-
+    
 }
 
 window.updatePosts = updatePosts
