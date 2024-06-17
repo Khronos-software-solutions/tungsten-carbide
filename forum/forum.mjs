@@ -77,3 +77,7 @@ const fetchPosts = () => {
 
 window.updatePosts = updatePosts
 window.submit = submit
+
+window.onload = () => {
+    updatePosts('')
+}

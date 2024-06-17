@@ -1,24 +1,252 @@
 const posts = {
   posts: [
     {
-      title: "lorem ipsus",
+      title: "Why is processing a sorted array faster than processing an unsorted array?",
       post_id: 0,
-      user_id: 1223,
-      body: `Ambatakum`,
-      score: -22,
+      score: 27270,
       tags: [
-        "bussin"
+        "java",
+        "c++",
+        "performance",
+        "cpu-architecture",
+        "branch-prediction"
       ],
+      body: `In this C++ code, sorting the data (<em>before</em> the timed region) makes the primary loop ~6x faster:
+      <pre><code>
+      #include &lt;algorithm&gt;
+      #include &lt;ctime&gt;
+      #include &lt;iostream&gt;
+      
+      int main()
+      {
+          // Generate data
+          const unsigned arraySize = <span class="hljs-number">32768;
+          int data[arraySize];
+      
+          for (unsigned c = 0; c &lt; arraySize; ++c)
+              data[c] = std::rand() % 256;
+      
+          // !!! With this, the next loop runs faster.
+          std::sort(data, data + arraySize);
+      
+          // Test
+          clock_t start = clock();
+          long long sum = 0;
+          for (unsigned i = 0; i &lt; 100000; ++i)
+          {
+              for (unsigned c = 0; c &lt; arraySize; ++c)
+              {   // Primary loop.
+                  if (data[c] &gt;= 128)
+                      sum += data[c];
+              }
+          }
+      
+          double elapsedTime = static_cast&lt;double&gt;(clock()-start) / CLOCKS_PER_SEC;
+      
+          std::cout &lt;&lt; elapsedTime &lt;&lt; '\n';
+          std::cout &lt;&lt; "sum = " &lt;&lt; sum &lt;&lt; '\n';
+      }
+      </code></pre>
+      <ul>
+      <li>Without <code>std::sort(data, data + arraySize);</code>, the code runs in 11.54 seconds.</li>
+      <li>With the sorted data, the code runs in 1.93 seconds.</li>
+      </ul>
+      (Sorting itself takes more time than this one pass over the array, so it's not actually worth doing if we needed to calculate this for an unknown array.)
+      <hr>
+      Initially, I thought this might be just a language or compiler anomaly, so I tried Java:
+      <pre class="lang-java s-code-block"><code class="hljs language-java">import java.util.Arrays;
+      import java.util.Random;
+      
+      public class Main
+      {
+          public static void main(String[] args)
+          {
+              // Generate data
+              int arraySize = 32768;
+              int data[] = new int[arraySize];
+      
+              Random rnd = new Random(0);
+              for (int c = 0; c &lt; arraySize; ++c)
+                  data[c] = rnd.nextInt() % 256;
+      
+              // !!! With this, the next loop runs faster
+              Arrays.sort(data);
+      
+              // Test
+              long start = System.nanoTime();
+              long sum = 0;
+              for (int i = 0; i &lt; 100000; ++i)
+              {
+                  for (int c = 0; c &lt; arraySize; ++c)
+                  {   // Primary loop.
+                      if (data[c] &gt;= 128)
+                          sum += data[c];
+                  }
+              }
+      
+              System.out.println((System.nanoTime() - start) / 1000000000.0);
+              System.out.println("sum = " + sum);
+          }
+      }
+      </code></pre>
+      With a similar but less extreme result.
+      <hr>
+      My first thought was that sorting brings the data into the <a href="https://en.wikipedia.org/wiki/CPU_cache" rel="noreferrer">cache</a>, but that's silly because the array was just generated.
+      <ul>
+      <li>What is going on?</li>
+      <li>Why is processing a sorted array faster than processing an unsorted array?</li>
+      </ul>
+      The code is summing up some independent terms, so the order should not matter`,
       answers: [
         {
-          user_id: 1023,
-          body: "hi, fuck you",
-          score: 69420
-        },
-        {
-          user_id: 1030,
-          body: "Replying to @1023:\nyea i agree",
-          score: 2e457788
+          score: 35002,
+          body: `
+          <strong>You are a victim of <a href="https://en.wikipedia.org/wiki/Branch_predictor" rel="noreferrer">branch prediction</a> fail.</strong>
+<hr>
+<h2>What is Branch Prediction?</h2>
+Consider a railroad junction:
+Now for the sake of argument, suppose this is back in the 1800s - before long-distance or radio communication.
+You are a blind operator of a junction and you hear a train coming. You have no idea which way it is supposed to go. You stop the train to ask the driver which direction they want. And then you set the switch appropriately.
+<em>Trains are heavy and have a lot of inertia, so they take forever to start up and slow down.</em>
+Is there a better way? You guess which direction the train will go!
+<ul>
+<li>If you guessed right, it continues on.</li>
+<li>If you guessed wrong, the driver will stop, back up, and yell at you to flip the switch. Then it can restart down the other path.</li>
+</ul>
+<p><strong>If you guess right every time</strong>, the train will never have to stop.<br>
+<strong>If you guess wrong too often</strong>, the train will spend a lot of time stopping, backing up, and restarting.</p>
+<hr>
+<strong>Consider an if-statement:</strong> At the processor level, it is a branch instruction:
+<img src="https://i.sstatic.net/pyfwC.png" alt="if(x >= 128) compiles into a jump-if-less-than processor instruction.">
+You are a processor and you see a branch. You have no idea which way it will go. What do you do? You halt execution and wait until the previous instructions are complete. Then you continue down the correct path.
+<em>Modern processors are complicated and have long pipelines. This means they take forever to "warm up" and "slow down".</em>
+Is there a better way? You guess which direction the branch will go!
+<ul>
+<li>If you guessed right, you continue executing.</li>
+<li>If you guessed wrong, you need to flush the pipeline and roll back to the branch. Then you can restart down the other path.</li>
+</ul>
+<p><strong>If you guess right every time</strong>, the execution will never have to stop.<br>
+<strong>If you guess wrong too often</strong>, you spend a lot of time stalling, rolling back, and restarting.</p>
+<hr>
+This is branch prediction. I admit it's not the best analogy since the train could just signal the direction with a flag. But in computers, the processor doesn't know which direction a branch will go until the last moment.
+How would you strategically guess to minimize the number of times that the train must back up and go down the other path? You look at the past history! If the train goes left 99% of the time, then you guess left. If it alternates, then you alternate your guesses. If it goes one way every three times, you guess the same...
+<em><strong>In other words, you try to identify a pattern and follow it.</strong></em> This is more or less how branch predictors work.
+Most applications have well-behaved branches. Therefore, modern branch predictors will typically achieve &gt;90% hit rates. But when faced with unpredictable branches with no recognizable patterns, branch predictors are virtually useless.
+Further reading: <a href="https://en.wikipedia.org/wiki/Branch_predictor" rel="noreferrer">"Branch predictor" article on Wikipedia</a>.
+<hr>
+<h2>As hinted from above, the culprit is this if-statement:</h2>
+<pre><code class="hljs language-haskell">if (data[c] &gt;= 128)
+    sum += data[c];
+</code></pre>
+Notice that the data is evenly distributed between 0 and 255. When the data is sorted, roughly the first half of the iterations will not enter the if-statement. After that, they will all enter the if-statement.
+This is very friendly to the branch predictor since the branch consecutively goes the same direction many times. Even a simple saturating counter will correctly predict the branch except for the few iterations after it switches direction.
+<strong>Quick visualization:</strong>
+<pre class="lang-none s-code-block"><code>T = branch taken
+N = branch not taken
+
+data[] = 0, 1, 2, 3, 4, ... 126, 127, 128, 129, 130, ... 250, 251, 252, ...
+branch = N  N  N  N  N  ...   N    N    T    T    T  ...   T    T    T  ...
+
+       = NNNNNNNNNNNN ... NNNNNNNTTTTTTTTT ... TTTTTTTTTT  (easy to predict)
+</code></pre>
+However, when the data is completely random, the branch predictor is rendered useless, because it can't predict random data. Thus there will probably be around 50% misprediction (no better than random guessing).
+<pre class="lang-none s-code-block"><code>data[] = 226, 185, 125, 158, 198, 144, 217, 79, 202, 118,  14, 150, 177, 182, ...
+branch =   T,   T,   N,   T,   T,   T,   T,  N,   T,   N,   N,   T,   T,   T  ...
+
+       = TTNTTTTNTNNTTT ...   (completely random - impossible to predict)
+</code></pre>
+<hr>
+<strong>What can be done?</strong>
+If the compiler isn't able to optimize the branch into a conditional move, you can try some hacks if you are willing to sacrifice readability for performance.
+Replace:
+<pre><code class="hljs language-haskell">if (data[c] &gt;= 128)
+    sum += data[c];
+</code></pre>
+with:
+<pre><code>int t = (data[c] - 128) &gt;&gt; 31;
+sum += ~t &amp; data[c];
+</code></pre>
+This eliminates the branch and replaces it with some bitwise operations.
+<sub>(Note that this hack is not strictly equivalent to the original if-statement. But in this case, it's valid for all the input values of <code>data[]</code>.)</sub>
+<strong>Benchmarks: Core i7 920 @ 3.5 GHz</strong>
+C++ - Visual Studio 2010 - x64 Release
+<div class="s-table-container"><table class="s-table">
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Time (seconds)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Branching - Random data</td>
+<td>11.777</td>
+</tr>
+<tr>
+<td>Branching - Sorted data</td>
+<td>2.352</td>
+</tr>
+<tr>
+<td>Branchless - Random data</td>
+<td>2.564</td>
+</tr>
+<tr>
+<td>Branchless - Sorted data</td>
+<td>2.587</td>
+</tr>
+</tbody>
+</table></div>
+<p>Java - NetBeans 7.1.1 JDK 7 - x64</p>
+<div class="s-table-container"><table class="s-table">
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Time (seconds)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Branching - Random data</td>
+<td>10.93293813</td>
+</tr>
+<tr>
+<td>Branching - Sorted data</td>
+<td>5.643797077</td>
+</tr>
+<tr>
+<td>Branchless - Random data</td>
+<td>3.113581453</td>
+</tr>
+<tr>
+<td>Branchless - Sorted data</td>
+<td>3.186068823</td>
+</tr>
+</tbody>
+</table></div>
+Observations:
+<ul>
+<li><strong>With the Branch:</strong> There is a huge difference between the sorted and unsorted data.</li>
+<li><strong>With the Hack:</strong> There is no difference between sorted and unsorted data.</li>
+<li>In the C++ case, the hack is actually a tad slower than with the branch when the data is sorted.</li>
+</ul>
+A general rule of thumb is to avoid data-dependent branching in critical loops (such as in this example).
+<hr>
+<strong>Update:</strong>
+<ul>
+<li>GCC 4.6.1 with <code>-O3</code> or <code>-ftree-vectorize</code> on x64 is able to generate a conditional move, so there is no difference between the sorted and unsorted data - both are fast.  This is called "if-conversion" (to branchless) and is necessary for vectorization but also sometimes good for scalar.
+(Or somewhat fast: for the already-sorted case, <code>cmov</code> can be slower especially if GCC puts it on the critical path instead of just <code>add</code>, especially on Intel before Broadwell where <code>cmov</code> has 2-cycle latency: <em><a href="https://stackoverflow.com/questions/28875325/gcc-optimization-flag-o3-makes-code-slower-than-o2">gcc optimization flag -O3 makes code slower than -O2</a></em>)
+</li>
+<li>VC++ 2010 is unable to generate conditional moves for this branch even under <code>/Ox</code>.
+</li>
+<li><a href="https://en.wikipedia.org/wiki/Intel_C++_Compiler" rel="noreferrer">Intel C++ Compiler</a> (ICC) 11 does something miraculous. It <a href="https://en.wikipedia.org/wiki/Loop_interchange" rel="noreferrer">interchanges the two loops</a>, thereby hoisting the unpredictable branch to the outer loop. Not only is it immune to the mispredictions, it's also twice as fast as whatever VC++ and GCC can generate! In other words, ICC took advantage of the test-loop to defeat the benchmark...
+</li>
+<li>If you give the Intel compiler the branchless code, it just outright vectorizes it... and is just as fast as with the branch (with the loop interchange).
+</li>
+</ul>
+<ul>
+<li>Clang also vectorizes the <code>if()</code> version, as will GCC 5 and later with <code>-O3</code>, even though it takes quite a few instructions to sign-extend to the 64-bit sum on x86 without SSE4 or AVX2.  (<code>-march=x86-64-v2</code> or <code>v3</code>).  See <em><a href="https://stackoverflow.com/questions/66521344/why-is-processing-an-unsorted-array-the-same-speed-as-processing-a-sorted-array">Why is processing an unsorted array the same speed as processing a sorted array with modern x86-64 clang?</a></em></li>
+</ul>
+This goes to show that even mature modern compilers can vary wildly in their ability to optimize code...`
         }
       ]
     },
@@ -233,23 +461,11 @@ const posts = {
               });
           }
           </code></pre>
-          It's easier to write code using callbacks than it may seem. After all, JavaScript in the browser is heavily event-driven (DOM events). Receiving the Ajax response is nothing else but an event. Difficulties could arise when you have to work with third-party code, but most problems can be solved by just thinking through the application flow.`
+          It's easier to write code using callbacks than it may seem. After all, JavaScript in the browser is heavily event-driven (DOM events). Receiving the Ajax response is nothing else but an event. Difficulties could arise when you have to work with third-party code, but most problems can be solved by just thinking through the application flow.`,
+          score: 304,
         }
       ]
     },
-    {
-      title: "mock2",
-      post_id: 2,
-      body: "ipsum",
-      score: 696969,
-    },
-    {
-      title: "mock3",
-      post_id: 3,
-      body: "dolor",
-      score: -69420
-    },
-
     {
       title: "How do I install my CPU",
       post_id: 4,
@@ -258,9 +474,9 @@ const posts = {
       score: -204,
       tags: [
         "Hardware",
-         "Computerbuiling",
-         "frequently asked questions",
-         "beginner computer builder"
+        "PC building",
+        "PC Components",
+        "Processor"
       ],
       answers: [
         {
@@ -271,12 +487,12 @@ const posts = {
         {
           user_id: 1030,
           body: "shall I google it for you",
-          score: 24577
+          score: 247
         },
         {
           user_id: 1030,
           body: "I recommend you see a tutorial for this issue, it is a delicate process",
-          score: 96594
+          score: 994
         }
       ]
     },
@@ -284,50 +500,50 @@ const posts = {
       title: "Where should I put my GPU",
       post_id: 5,
       user_id: 1002,
-      body: `I am installign my GPU, but I have two PCI-e slots, where should I put it?`,
-      score: 5890,
+      body: `I am installing my GPU, but I have two PCI-e slots, where should I put it?`,
+      score: 34,
       tags: [
         "Hardware",
-        "GPUissues",
-        "Frequently asked questions"
+        "PC components",
+        "Optimization",
+        "GPU"
       ],
       answers: [
         {
-          user_id: 1030,
-          body: "ALsways put your GPU in the upper slot, the most bottom slot suffers from lag and besides, it uses most of the thime a lower bandwidth",
+          user_id: 1023,
+          body: "Always put your GPU in the upper slot, the most bottom slot suffers from lag and besides, the lower slot has a lower bandwidth",
           score: 697
         },
         {
           user_id: 1030,
           body: "Nah, I use iGPU",
-          score: -9999
+          score: -328
         },
         {
           title: "Best CPU cooler for 7600x",
           post_id: 6,
           user_id: 1001,
           body: `I am about to buy a computer with a ryzen 7600x, what cooler should I buy alongside?`,
-          score: 199,
+          score: 129,
           tags: [
             "Hardware",
-             "Computerbuiling",
-             "frequently sked questions",
+            "PC building",
           ],
           answers: [
             {
               user_id: 1023,
               body: "A CPU with over 80 watts will require a water cooler, I learned that the hard way",
-              score: 69676
+              score: 676
             },
             {
               user_id: 1030,
               body: "Use a big air cooler like the AK620, or a moderate water cooler",
-              score: 24577
+              score: 277
             },
             {
               user_id: 1030,
               body: "Grill a steak on your CPU",
-              score: 82475929
+              score: 829
             }
           ]
         }
