@@ -8,8 +8,8 @@ $.getJSON("https://api.stackexchange.com/2.3/posts?order=desc&sort=votes&site=st
             } else if (val.score < 0) {
                 s = 'neg'
             }
-
-            let tagvals = 'No tags'
+            
+            let tags = 'No tags'
             let answercount = 'No answers'
 
             if (!val.hasOwnProperty('title')) {
@@ -29,12 +29,12 @@ $.getJSON("https://api.stackexchange.com/2.3/posts?order=desc&sort=votes&site=st
             }
 
             if (val.hasOwnProperty('tags') && val.tags.length != 0) {
-                tagvals = ''
-                val.tags.forEach(tag => {tagvals += `<div class="tag">${tag}</div>&nbsp;`})
+                tags = ''
+                val.tags.forEach(tag => {tags += `<div class="tag">${tag}</div>&nbsp;`})
             }
 
             items.push(`<div class="pagelist-element" onclick="goToPost(${val.post_id})">
-<div class="upper"><div class="pagelist-title">${val.title}</div>&nbsp;·&nbsp;<div class="pagescore pagescore-${s}">${val.score}</div>&nbsp;·&nbsp;<div class="answercount">${answercount}</div>&nbsp;·&nbsp;<div class="tag-container">${tagvals}</div></div><br>
+<div class="upper"><div class="pagelist-title">${val.title}</div>&nbsp;·&nbsp;<div class="pagescore pagescore-${s}">${val.score}</div>&nbsp;·&nbsp;<div class="answercount">${answercount}</div>&nbsp;·&nbsp;<div class="tag-container">${tags}</div></div><br>
 <div class="lower"><div class="pagelist-subtitle">${val.body.replace(/<[^>]*>?/gm, '').slice(0,50)}...</div></div>
 </div>`)
         })

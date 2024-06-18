@@ -15,7 +15,7 @@ window.onload = () => {
   const answers = document.getElementById('answers')
   if (post.answers && post.answers.length != 0) {
     post.answers.forEach(e => {
-      answers.innerHTML = answers.innerHTML + e.body
+      answers.innerHTML = answers.innerHTML + `<div class="answer">${e.body}</div>`
     })
   } else {
     answers.innerHTML = "<h3>No answers</h3>"
