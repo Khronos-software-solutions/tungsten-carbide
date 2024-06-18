@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Post</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="../lib/styles/dark.min.css">
-    <script src="../lib/highlight.min.js"></script>
-    <script src="./post.mjs" type="module"></script>
-    <script src="../script.js"></script>
-</head>
-<body>
-    <div class="top-bar" style="display: flex; width: auto; justify-content: space-between; padding: 7px">
-        <div style="display: flex; overflow: hidden; gap: 7px; background-color: inherit;"><button class="home_button" onclick="window.location = '../forum/'">Back</button>
-        <button class="home_button" onclick="window.location = '../'">Home</button></div>
-        <span class="theme-toggle" style="padding: 6px" id="theme-toggle" onclick="updateButton()">
-          <span id="theme-icon" class="icon-theme-light" style="width: 20px; height: 20px;" ></span>
-          Toggle theme
-        </span>
-      </div>
-    <div class="main">
-        <div id="postbody" class="post">
 
-        </div>
-        <div id="answer-header"></div>
-        <div id="answers" class="answers">
-            
-        </div>
+<head>
+  <meta charset="UTF-8">
+  <title>Post</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="../lib/styles/dark.min.css">
+  <script src="../lib/highlight.min.js"></script>
+  <script src="./post.mjs" type="module"></script>
+  <script src="../script.js"></script>
+</head>
+
+<body>
+  <div class="top-bar" style="display: flex; width: auto; justify-content: space-between; padding: 7px">
+    <div style="display: flex; overflow: hidden; gap: 7px; background-color: inherit;"><button class="home_button"
+        onclick="window.location = '../forum/'">Back</button>
+      <button class="home_button" onclick="window.location = '../'">Home</button>
     </div>
+    <span class="theme-toggle" style="padding: 6px" id="theme-toggle" onclick="updateButton()">
+      <span id="theme-icon" class="icon-theme-light" style="width: 20px; height: 20px;"></span>
+      Toggle theme
+    </span>
+  </div>
+  <div class="main">
+    <div id="postbody" class="post">
+
+    </div>
+    <div id="answer-header"></div>
+    <div id="answers" class="answers">
+
+    </div>
+  </div>
 </body>
+
 </html>

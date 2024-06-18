@@ -303,9 +303,10 @@ This goes to show that even mature modern compilers can vary wildly in their abi
       </code></pre>`,
       score: 6702,
       tags: [
-        "javascript",
-        "ajax",
-        "asynchronous"
+        "JavaScript",
+        "JQuery",
+        "Ajax",
+        "Async"
       ],
       answers: [
         {
@@ -461,7 +462,8 @@ This goes to show that even mature modern compilers can vary wildly in their abi
               });
           }
           </code></pre>
-          It's easier to write code using callbacks than it may seem. After all, JavaScript in the browser is heavily event-driven (DOM events). Receiving the Ajax response is nothing else but an event. Difficulties could arise when you have to work with third-party code, but most problems can be solved by just thinking through the application flow.`
+          It's easier to write code using callbacks than it may seem. After all, JavaScript in the browser is heavily event-driven (DOM events). Receiving the Ajax response is nothing else but an event. Difficulties could arise when you have to work with third-party code, but most problems can be solved by just thinking through the application flow.`,
+          score: 35002
         }
       ]
     },
@@ -473,8 +475,11 @@ This goes to show that even mature modern compilers can vary wildly in their abi
 
       What methods/tools can be used to determine the cause so that you stop the exception from causing the program to terminate prematurely?`,
       tags: [
-        "java",
-        "nullpointerexception"
+        "Software",
+        "Programming",
+        "Bug/Error",
+        "Java",
+        "NullPointerException"
       ],
       answers: [
         {
@@ -586,19 +591,29 @@ This goes to show that even mature modern compilers can vary wildly in their abi
       
           Method references of the form name1::name2 or primaryExpression::name throws a NullPointerException when evaluated when name1 or primaryExpression evaluates to null.
       
-          a note from the JLS here says that, someInstance.someStaticMethod() doesn't throw an NPE, because someStaticMethod is static, but someInstance::someStaticMethod still throw an NPE!
-      `
+          a note from the JLS here says that, someInstance.someStaticMethod() doesn't throw an NPE, because someStaticMethod is static, but someInstance::someStaticMethod still throw an NPE!`,
+          score: 4203
+        },
+        {
+          body: `<code>NullPointerException</code>s are exceptions that occur when you try to use a reference that points to no location in memory (null) as though it were referencing an object.  Calling a method on a null reference or trying to access a field of a null reference will trigger a <code>NullPointerException</code>.  These are the most common, but other ways are listed on the <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/NullPointerException.html" rel="noreferrer"><code>NullPointerException</code></a> javadoc page.<br>
+Probably the quickest example code I could come up with to illustrate a <code>NullPointerException</code> would be:<br>
+<pre><code>public class Example {
+
+    public static void main(String[] args) {
+        Object obj = null;
+        obj.hashCode();
+    }
+
+}
+</code></pre>
+On the first line inside <code>main</code>, I'm explicitly setting the <code>Object</code> reference <code>obj</code> equal to <code>null</code>.  This means I have a reference, but it isn't pointing to any object.  After that, I try to treat the reference as though it points to an object by calling a method on it.  This results in a <code>NullPointerException</code> because there is no code to execute in the location that the reference is pointing.<br>
+(This is a technicality, but I think it bears mentioning: A reference that points to null isn't the same as a C pointer that points to an invalid memory location.  A null pointer is literally not pointing <i>anywhere</i>, which is subtly different than pointing to a location that happens to be invalid.)`,
+          score: 969
         }
       ]
     },
     {
-      title: "mock3",
-      post_id: 3,
-      body: "dolor",
-      score: -69420
-    },
-    {
-      title: "How do I install my CPU",
+      title: "How do I install my CPU?",
       post_id: 4,
       user_id: 1001,
       body: `I just bought a new PC, and I am already stuck on how to install the CPU, can anyone help?`,
@@ -628,7 +643,7 @@ This goes to show that even mature modern compilers can vary wildly in their abi
       ]
     },
     {
-      title: "Where should I put my GPU",
+      title: "Where should I put my GPU?",
       post_id: 5,
       user_id: 1002,
       body: `I am installing my GPU, but I have two PCI-e slots, where should I put it?`,
@@ -650,155 +665,161 @@ This goes to show that even mature modern compilers can vary wildly in their abi
           body: "Nah, I use iGPU",
           score: -328
         },
+      ],
+    },
+    {
+      title: "Best CPU cooler for 7600X",
+      post_id: 6,
+      user_id: 1001,
+      body: `I am about to buy a computer with a Ryzen 7600X, what cooler should I buy alongside?`,
+      score: 129,
+      tags: [
+        "Hardware",
+        "PC building",
+        "Cooling"
+      ],
+      answers: [
         {
-          title: "Best CPU cooler for 7600x",
-          post_id: 6,
-          user_id: 1001,
-          body: `I am about to buy a computer with a ryzen 7600x, what cooler should I buy alongside?`,
-          score: 129,
-          tags: [
-            "Hardware",
-            "PC building",
-             "Computerbuiling",
-             "frequently asked questions",
-          ],
-          answers: [
-            {
-              user_id: 1023,
-              body: "A CPU with over 80 watts will require a water cooler, I learned that the hard way",
-              score: 676
-            },
-            {
-              user_id: 1030,
-              body: "Use a big air cooler like the AK620, or a moderate water cooler",
-              score: 277
-            },
-            {
-              user_id: 1030,
-              body: "Grill a steak on your CPU",
-              score: 82475929
-            }
-          ]
+          user_id: 1023,
+          body: "A CPU with over 80 watts will require a water cooler, I learned that the hard way",
+          score: 676
         },
         {
-          title: "Is DDR5 worth it",
-          post_id: 7,
-          user_id: 1428,
-          body: `I am about to buy a 13th gen intel motherboard, but should I go for DDR5 or just DDR4?`,
-          score: 20,
-          tags: [
-            "Hardware",
-            "PCpart", 
-            "financial"
-          ],
-          answers: [
-            {
-              user_id: 9901,
-              body: "I would go with DDR5 just for futureproofing",
-              score: 10
-            },
-            {
-              user_id: 2234,
-              body: "Depends, If you want a cheaper computer, DDR4 is the best option, but DDR5 is better for futureproofing",
-              score: 66
-            },
-            {
-              user_id: 6685,
-              body: "Faster is better, go for DDR5",
-              score: 5
-            },
-          ]
+          user_id: 1030,
+          body: "Use a big air cooler like the AK620, or a moderate water cooler",
+          score: 277
         },
         {
-          title: "GPU noise",
-          post_id: 8,
-          user_id: 8795,
-          body: `My GPU is making alot of noise like a lawnmower, Is that normal, It does work`,
-          score: 305,
-          tags: [
-            "Hardware",
-            "gpu",
-            "coilwhine"
-          ],
-          answers: [
-            {
-              user_id: 5301,
-              body: "What you have is something called coilwhine, It is normal and it does not affect performance, however, if you are hindered by the noise, than you can google some trick to limit the damage.",
-              score: 209
-            },
-            {
-              user_id: 1230,
-              body: "It is normal, you can put rubber bushing between the case and your GPu to limit noise.",
-              score: 12
-            },
-            {
-              user_id: 1009,
-              body: "Just buy a better gpu",
-              score: -5
-            },
-            {
-              user_id: 1010,
-              body: "It usually dissipates over time, don't you worry",
-              score: 13
-            },
-          ]
-        },
-        {
-          title: "Do you need Dram for better Nvme performance",
-          post_id: 9,
-          user_id: 3334,
-          body: `I am about to buy a new drive for my editing rig, do I need Dram for my SSD?`,
-          score: 367,
-          tags: [
-            "Hardware",
-            "storage",
-            "computerbuilding"
-          ],
-          answers: [
-            {
-              user_id: 2002,
-              body: "Yes, for editing and large files Dram is better, it will give better responiveness and faster random speeds",
-              score: 439
-            },
-          ]
-        },
-        {
-          title: "How much PC fans",
-          post_id: 9,
-          user_id: 9785,
-          body: `I am going to ugrande my case from my open-air test bench, How many case fans do I need`,
-          score: 698,
-          tags: [
-            "Hardware",
-          ],
-          answers: [
-            {
-              user_id: 9971,
-              body: "At least one, but the best thing to do is have one exhaust fan for every intake fan, or have more intake than exhaust",
-              score: 200
-            },
-            {
-              user_id: 9888,
-              body: "Have at least one fan",
-              score: 5
-            },
-            {
-              user_id: 6246,
-              body: "Depends on case size, Bigger cases sometimes perform better with negative airflow and micro cases also like more negative airflow",
-              score: 15
-            },
-            {
-              user_id: 3344,
-              body: "I mostly depends on the cooling solutions for your GPU and CPU",
-              score: 4
-            },
-            {
-              user_id: 5893,
-              body: "Just use all case fan mounts, and you'll be good to go",
-              score: -2
-            },
-          ]
+          user_id: 1030,
+          body: "Grill a steak on your CPU",
+          score: 82475929
         }
+      ]
+    },
+    {
+      title: "Is DDR5 worth it?",
+      post_id: 7,
+      user_id: 1428,
+      body: `I am about to buy a 13th gen intel motherboard, but should I go for DDR5 or just DDR4?`,
+      score: 20,
+      tags: [
+        "Hardware",
+        "PCpart",
+        "financial"
+      ],
+      answers: [
+        {
+          user_id: 9901,
+          body: "I would go with DDR5 just for future-proofing",
+          score: 10
+        },
+        {
+          user_id: 2234,
+          body: "Depends, If you want a cheaper computer, DDR4 is the best option, but DDR5 is better for future-proofing",
+          score: 66
+        },
+        {
+          user_id: 6685,
+          body: "Faster is better, go for DDR5",
+          score: 5
+        },
+      ]
+    },
+    {
+      title: "GPU noise",
+      post_id: 8,
+      user_id: 8795,
+      body: `My GPU is making a lot of noise like a lawnmower, Is that normal, It does work`,
+      score: 305,
+      tags: [
+        "Hardware",
+        "PC Hardware",
+        "GPU",
+        "Issue"
+      ],
+      answers: [
+        {
+          user_id: 5301,
+          body: "What you have is something called coil whine, It is normal and it does not affect performance, however, if you are hindered by the noise, than you can google some trick to limit the damage.",
+          score: 20
+        },
+        {
+          user_id: 1230,
+          body: "It is normal, you can put rubber bushing between the case and your GPu to limit noise.",
+          score: 12
+        },
+        {
+          user_id: 1009,
+          body: "Just buy a better gpu",
+          score: -5
+        },
+        {
+          user_id: 1010,
+          body: "It usually dissipates over time, don't you worry",
+          score: 13
+        },
+      ]
+    },
+    {
+      title: "Do you need DRAM for better NVMe performance",
+      post_id: 9,
+      user_id: 3334,
+      body: `I am about to buy a new drive for my editing rig, do I need DRAM for my SSD?`,
+      score: 367,
+      tags: [
+        "Hardware",
+        "PC Hardware",
+        "PC Building",
+        "Storage",
+        "Solid State Drive",
+        "Random Access Memory",
+        "DDR5"
+      ],
+      answers: [
+        {
+          user_id: 2002,
+          body: "Yes, for editing and large files Dram is better, it will give better responsiveness and faster random speeds",
+          score: 439
+        },
+      ]
+    },
+    {
+      title: "How many PC fans do I need?",
+      post_id: 9,
+      user_id: 9785,
+      body: `I am going to upgrade my case from my open-air test bench, How many case fans do I need`,
+      score: 698,
+      tags: [
+        "Hardware",
+        "PC Hardware",
+        "Cooling",
+      ],
+      answers: [
+        {
+          user_id: 9971,
+          body: "At least one, but the best thing to do is have one exhaust fan for every intake fan, or have more intake than exhaust",
+          score: 27
+        },
+        {
+          user_id: 9888,
+          body: "You should use at least one",
+          score: 5
+        },
+        {
+          user_id: 6246,
+          body: "Depends on case size, Bigger cases sometimes perform better with negative airflow and micro cases also like more negative airflow",
+          score: 15
+        },
+        {
+          user_id: 3344,
+          body: "It mostly depends on the cooling solutions for your GPU and CPU",
+          score: 4
+        },
+        {
+          user_id: 5893,
+          body: "Just use all case fan mounts, and you'll be good to go",
+          score: -2
+        },
       ]
     }
   ]

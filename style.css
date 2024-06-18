@@ -13,6 +13,20 @@ body {
     margin: 0;
 }
 
+.content {
+    background-color: rgb(128,128,128,0.3);
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.content * {
+    background-color: none;
+}
+
+.main {
+    margin: 20px;
+}
+
 .buttons button {
     color: white;
     margin: 2px;
@@ -54,14 +68,6 @@ body {
     background-color: rgba(255,255,255,0.3);
 }
 
-.body_dark {
-    background-color: rgb(74, 70, 70);
-}
-
-.body_light {
-    background-color: whitesmoke; 
-}
-
 .body_container {
     display: inline-block;
     Background-color: grey ;
@@ -70,6 +76,8 @@ body {
     padding: 10px;
 }
 
+
+
 .dark {
     background-color: #222;
     color: #eee;
@@ -77,6 +85,16 @@ body {
 
 pre code span.dark {
     background-color: #303030;
+}
+
+.content.dark {
+    background-color: rgb(128,128,128,0.3);
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.content.dark * {
+    background-color: rgba(0,0,0,0);
 }
 
 .searchbar {

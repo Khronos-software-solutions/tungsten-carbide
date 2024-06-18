@@ -6,9 +6,9 @@ async function sha256(str) {
 }
 
 Date.prototype.addDays = function(days) {
-    var date = new Date(this.valueOf());
-    date.setDate(date.getDate() + days);
-    return date;
+    var date = new Date(this.valueOf())
+    date.setDate(date.getDate() + days)
+    return date
 }
 
 const login = async () => {
