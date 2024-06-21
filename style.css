@@ -127,6 +127,7 @@ pre code span.dark {
     display: flex;
     gap: .25rem;
     justify-content: center;
+    margin-right: 6px;
 }
 
 .theme-toggle:hover {
