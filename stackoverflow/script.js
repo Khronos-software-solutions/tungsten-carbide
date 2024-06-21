@@ -1,4 +1,4 @@
-$.getJSON("https://api.stackexchange.com/2.3/posts?order=desc&sort=votes&site=stackoverflow&filter=!T3AudpfhnFxP(y7gWl",
+$.getJSON("https://api.stackexchange.com/2.3/questions?order=desc&sort=votes&site=stackoverflow&filter=!*Mg4PjfgUekbVKYa",
   function (data) {
     let items = []
     $.each(data.items, function (key, val) {
@@ -33,7 +33,7 @@ $.getJSON("https://api.stackexchange.com/2.3/posts?order=desc&sort=votes&site=st
         val.tags.forEach(tag => { tags += `<div class="tag">${tag}</div>&nbsp;` })
       }
 
-      items.push(`<div class="pagelist-element" onclick="goToPost(${val.post_id})">
+      items.push(`<div class="pagelist-element" onclick="goToStackPost(${val.question_id})">
 <div class="upper"><div class="pagelist-title">${val.title}</div>&nbsp;·&nbsp;<div class="pagescore pagescore-${s}">${val.score}</div>&nbsp;·&nbsp;<div class="answercount">${answerCount}</div>&nbsp;·&nbsp;<div class="tag-container">${tags}</div></div><br>
 <div class="lower"><div class="pagelist-subtitle">${val.body.replace(/<[^>]*>?/gm, '').slice(0, 50)}...</div></div>
 </div>`)
@@ -44,8 +44,3 @@ $.getJSON("https://api.stackexchange.com/2.3/posts?order=desc&sort=votes&site=st
     })
   }
 )
-
-const goToPost = (id) => {
-  setCookie('nextpost', id)
-  console.error('Error: lack of progress -_-')
-}

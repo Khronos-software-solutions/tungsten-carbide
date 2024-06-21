@@ -167,7 +167,7 @@ with:
 sum += ~t &amp; data[c];
 </code></pre>
 This eliminates the branch and replaces it with some bitwise operations.
-<sub>(Note that this hack is not strictly equivalent to the original if-statement. But in this case, it's valid for all the input values of <code>data[]</code>.)</sub>
+<sub>(Note that this hack is not strictly equivalent to the original if-statement. But in this case, it's valid for all the input values of <code>data[]</code>.)</sub><br>
 <strong>Benchmarks: Core i7 920 @ 3.5 GHz</strong>
 C++ - Visual Studio 2010 - x64 Release
 <div class="s-table-container"><table class="s-table">
@@ -821,6 +821,12 @@ On the first line inside <code>main</code>, I'm explicitly setting the <code>Obj
           score: -2
         },
       ]
+    },
+    {
+      title: "What is vectorization?",
+      post_id: 10,
+      user_id: 2738,
+      body: ``
     }
   ]
 }

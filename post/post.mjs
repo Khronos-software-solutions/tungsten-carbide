@@ -9,42 +9,46 @@ window.onload = () => {
     return
   }
 
-  const postbody = document.getElementById('postbody')
-  let scorecolor = 'neut'
+  const postBody = document.getElementById('postbody')
+  let s = 'neut'
   if (post.score > 0) {
-    scorecolor = 'pos'
+    s = 'pos'
   }  else if (e.post < 0) {
-    scorecolor = 'neg'
+    s = 'neg'
   } 
-  postbody.innerHTML = postbody.innerHTML + `
+  postBody.innerHTML = postBody.innerHTML + `
   <div style="display: flex;">
-    <div class="postscore postscore-${scorecolor}">${post.score}</div>
+    <div class="postscore postscore-${s}">${post.score}</div>
     <div class="post">
       <h1>${post.title}</h1><br>
       ${post.body}
     </div>
   </div>`
 
-  const answerheader = document.getElementById('answer-header')
+  const answerHeader = document.getElementById('answer-header')
 
   const answers = document.getElementById('answers')
   if (post.answers && post.answers.length != 0) {
     if (post.answers.length == 1) {
-      answerheader.innerHTML = '1 Answer'
+      answerHeader.innerHTML = '1 Answer'
     } else {
-      answerheader.innerHTML = `${post.answers.length} Answers`
+      answerHeader.innerHTML = `${post.answers.length} Answers`
     }
     post.answers.forEach(e => {
-      let scorecolor = 'neut'
+      let s = 'neut'
       if (e.score > 0) {
-        scorecolor = 'pos'
+        s = 'pos'
       }  else if (e.score < 0) {
-        scorecolor = 'neg'
+        s = 'neg'
       } 
-      answers.innerHTML = answers.innerHTML + `<div style="display: flex;"><div class="postscore postscore-${scorecolor}">${e.score}</div><div class="post">${e.body}</div></div><br>`
+      answers.innerHTML = answers.innerHTML + `
+      <div class="post" style="display: flex;">
+        <div class="postscore postscore-${s}">${e.score}</div>
+        <div>${e.body}</div>
+      </div><br>`
     })
   } else {
-    answerheader.innerHTML = 'No Answers'
+    answerHeader.innerHTML = 'No Answers'
   }
   hljs.highlightAll()
   setDarkMode()
