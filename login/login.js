@@ -17,11 +17,9 @@ const login = async () => {
     // authorization goes here...
     // rejection handling also
 
-    let exp = Date.now()
-    exp = exp.addDays(5)
-
     setCookie('username', username.value)
-    setCookie('sessionToken', await sha256(username.value) + await sha256(password.value) + await sha256(exp), 5) // the session token is just a combination of the digested username, password and expiration date
+    setCookie('sessionToken', await sha256(username.value) + await sha256(password.value)) // the session token is just a combination of the digested username, password and expiration date
+    alert('logged in succesfully!')
 }
 
 const register = async () => {
@@ -33,5 +31,6 @@ const register = async () => {
     }
     console.log('It is currently impossible to save something to a file. This is what is supposed to be appended to users.csv:')
     console.log(`someId,${firstname.value + " " + lastname.value},${username.value},${email.value},${now.toString()},member,${await sha256(password.value)}`)
+    alert('registered succesfully!')
     
 }

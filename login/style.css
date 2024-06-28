@@ -1,0 +1,22 @@
+form {
+
+    width: 75%;
+    padding: 15px;
+    padding-left: 0;
+  }
+
+  input {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    outline: none;
+  }
+
+  input.dark {
+    outline: none;
+    border-color: black;
+  }
+
+  input[type=submit] {
+    margin-top: 3px;
+  }
+
