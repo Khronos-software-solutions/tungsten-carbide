@@ -1,4 +1,5 @@
-$.getJSON("https://api.stackexchange.com/2.3/questions?order=desc&sort=votes&site=stackoverflow&filter=!*Mg4PjfgUekbVKYa",
+
+$.getJSON("https://api.stackexchange.com/2.3/questions?order=desc&max=25&sort=votes&site=stackoverflow&filter=!*Mg4PjfgUekbVKYa",
   function (data) {
     let items = []
     $.each(data.items, function (key, val) {
@@ -38,9 +39,15 @@ $.getJSON("https://api.stackexchange.com/2.3/questions?order=desc&sort=votes&sit
 <div class="lower"><div class="pagelist-subtitle">${val.body.replace(/<[^>]*>?/gm, '').slice(0, 50)}...</div></div>
 </div>`)
     })
-    console.log(items)
     items.forEach(e => {
       $('#main').append(e)
     })
+    setDarkMode()
   }
 )
+
+
+const goToStackPost = (id) => {
+  setCookie('nextstackpost', id)
+  window.location = "./post.html"
+}

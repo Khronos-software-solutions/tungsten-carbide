@@ -1,27 +1,39 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <link href="../style.css" rel="stylesheet" type="text/css" />
-    <link href="./style.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="../lib/styles/default.css">
-    <script src="../lib/jquery.min.js"></script>
-    <script src="../lib/highlight.min.js"></script>
-    <script src="./post.js" type="module"></script> <!-- Making it a module will load it after window.onload -->
-    <title>Stack Overflow Post | Tungsten Carbide</title>
+  <meta charset="UTF-8">
+  <link href="../style.css" rel="stylesheet" type="text/css" />
+  <link href="../post/style.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="../lib/styles/default.css">
+  <script src="../lib/jquery.min.js"></script>
+  <script src="../lib/highlight.min.js"></script>
+  <link rel="stylesheet" href="../lib/styles/dark.min.css">
+  <script src="../script.js"></script>
+  <title>Stack Overflow Post | Tungsten Carbide</title>
 </head>
 
 <body>
-    <div class="top-bar" style="display: flex; width: auto; justify-content: space-between; padding: 7px">
-        <button class="home_button" onclick="window.location = '../index.html'">Home</button>
-        <span class="theme-toggle" style="padding: 6px" id="theme-toggle" onclick="updateButton()">
-            <span id="theme-icon" class="icon-theme-light" style="width: 20px; height: 20px;"></span>
-            Toggle theme
-        </span>
+  <div class="top-bar" style="display: flex; width: auto; justify-content: space-between; padding: 7px">
+    <div style="display: flex; overflow: hidden; gap: 7px; background-color: inherit;">
+      <button class="home_button" onclick="window.location = '../forum/'">Back</button>
+      <button class="home_button" onclick="window.location = '../index.html'">Home</button>
     </div>
-    <div>
+    <span class="theme-toggle" style="padding: 6px" id="theme-toggle" onclick="updateButton()">
+      <span id="theme-icon" class="icon-theme-light" style="width: 20px; height: 20px;"></span>
+      Toggle theme
+    </span>
+  </div>
+  <div class="main">
+    <div id="postbody" class="post">
 
     </div>
+    <div id="answer-header"></div>
+    <div id="answers" class="answers">
+
+    </div>
+  </div>
+  <script src="./post.js"></script>
 </body>
 
 </html>
