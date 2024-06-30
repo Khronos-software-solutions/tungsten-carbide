@@ -1,3 +1,4 @@
+/* This module fetches posts from Stack Overflow and lists them */
 
 $.getJSON("https://api.stackexchange.com/2.3/questions?order=desc&max=25&sort=votes&site=stackoverflow&filter=!*Mg4PjfgUekbVKYa",
   function (data) {
@@ -49,5 +50,5 @@ $.getJSON("https://api.stackexchange.com/2.3/questions?order=desc&max=25&sort=vo
 
 const goToStackPost = (id) => {
   setCookie('nextstackpost', id)
-  window.location = "./post.html"
+  window.location = "./post/"
 }

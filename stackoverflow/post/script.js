@@ -1,4 +1,6 @@
-
+/* This module fetches a post from Stack Overflow and displays it and its answers.
+   See ../post/script.js for a more in depth explanation.
+*/
 let id = getCookie('nextstackpost')
 $.getJSON(`https://api.stackexchange.com/2.3/questions/${id}?order=desc&sort=activity&site=stackoverflow&filter=!17mFf6QJCBuWGviRfnMOWJNa59mYvy-)WzUjaCMd(Nb_1e`,
   function (data) {

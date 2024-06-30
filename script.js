@@ -1,3 +1,5 @@
+/* Basic, cross-site functions, such as cookies and theme handling */
+
 const setCookie = (n, v, ds) => {
   var e = ''
   if (ds) {
@@ -20,8 +22,8 @@ const getCookie = (n) => {
 }
 
 const deleteCookie = (n) => {
-  if( getCookie(n) ) {
-    document.cookie = n + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;SameSite=None"
+  if(getCookie(n)) {
+    document.cookie = n + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/;SameSite=None" // Setting the expiry date to the past will automatically delete the cookie
   }
 }
 
@@ -31,7 +33,7 @@ const setDarkMode = () => {
     document.body.querySelectorAll('*').forEach(e => { e.classList.add('dark') }) // Add 'dark' class to all elements
   } else {
     document.body.classList.remove('dark')
-    document.body.querySelectorAll('*').forEach(e => { e.classList.contains('dark') ? e.classList.remove('dark') : null }) // Remove 'dark' class from every element that hasx` one
+    document.body.querySelectorAll('*').forEach(e => { e.classList.contains('dark') ? e.classList.remove('dark') : null }) // Remove 'dark' class from every element that has one
   }
 }
 
@@ -58,6 +60,13 @@ const goToPost = (id) => {
 
 window.onload = () => {
   setDarkMode()
-  updateButton()
-  updateButton()
+
+  // Initialyze theme button
+  let t = document.getElementById('theme-icon')
+  if (t == null) {return}
+  if (window.localStorage.getItem('darkmode') != 'false') {
+    t.classList.add('icon-theme-dark')
+  } else {
+    t.classList.add('icon-theme-light')
+  }
 }

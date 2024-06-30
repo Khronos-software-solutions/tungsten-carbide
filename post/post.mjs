@@ -1,3 +1,5 @@
+/* This module is for rendering the post page (obviously) */
+
 import posts from "../posts.mjs"
 
 window.onload = () => {

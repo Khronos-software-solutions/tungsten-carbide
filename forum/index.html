@@ -8,18 +8,10 @@
   <link rel="stylesheet" href="../lib/styles/default.css">
   <script src="../lib/jquery.min.js"></script>
   <script src="../lib/highlight.min.js"></script>
-  <script>
-    const submit = (event) => {
-      if (event == null || event.keyCode == 13) {
-        let s = document.getElementById('searchbar')
-        updatePosts(s.value)
-      }
-    }
-  </script>
+  <script type="module" src="./forum.mjs"></script>
 </head>
 
 <body>
-  <script type="module" src="./forum.mjs"></script>
   <div class="top-bar" style="display: flex; width: auto; justify-content: space-between; padding: 7px">
     <button class="home_button" onclick="window.location = '../index.html'">Home</button>
     <span class="theme-toggle" style="padding: 6px" id="theme-toggle" onclick="updateButton()">
@@ -34,7 +26,7 @@
       <br>
       <a href="../ask/">Click here to learn how to post</a>
     </p>
-    <div><input class="searchbar" id="searchbar" placeholder="Search..." onkeypress="submit(event)"></div>
+    <div><input class="searchbar" id="searchbar" placeholder="Search..."></div>
   </div>
   <div id="page-list">
     <!-- Posts will go here; see forum.mjs -->

@@ -39,7 +39,7 @@ const updatePosts = (term) => {
       s = 'neg'
     }
 
-    
+    // Use placeholders if necessary
     if (!element.hasOwnProperty('title')) {
       element.title = 'Untitled Post'
     }
@@ -47,6 +47,7 @@ const updatePosts = (term) => {
       element.body = ''
     }
 
+    // Showing counts
     if (element.answers) {
       if (element.answers.length == 1) {
         answerCount = `1 answer`
@@ -55,6 +56,7 @@ const updatePosts = (term) => {
       }
     }
 
+    // Tags
     if (element.hasOwnProperty('tags') && element.tags.length != 0) {
       tags = ''
       element.tags.forEach(tag => { tags += `<div class="tag">${tag}</div>&nbsp;` })
@@ -69,13 +71,21 @@ const updatePosts = (term) => {
             </div>
         </div>`
   })
+
   setDarkMode()
 }
 
-// Exposing the function to the HTML
-window.updatePosts = updatePosts
+
+const submit = (event) => {
+  // Only update when pressing enter
+  if (event == null || event.keyCode == 13) {
+    let s = document.getElementById('searchbar')
+    updatePosts(s.value)
+  }
+}
 
 // List all posts on load
 window.onload = () => {
   updatePosts('')
+  document.addEventListener("keypress", submit)
 }

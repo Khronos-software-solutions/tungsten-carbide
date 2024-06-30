@@ -1,3 +1,7 @@
+/* This whole file is basically useless.
+   Just to make it appear a little bit fancy we've made use of sha256
+   */
+
 async function sha256(str) {
     const buffer = new TextEncoder('utf-8').encode(str)
     await crypto.subtle.digest('SHA-256',buffer)
@@ -18,7 +22,7 @@ const login = async () => {
     // rejection handling also
 
     setCookie('username', username.value)
-    setCookie('sessionToken', await sha256(username.value) + await sha256(password.value)) // the session token is just a combination of the digested username, password and expiration date
+    setCookie('sessionToken', await sha256(username.value) + await sha256(password.value)) // The session token is just a combination of the sha256 digested username, password and expiration date
     alert('logged in succesfully!')
 }
 
