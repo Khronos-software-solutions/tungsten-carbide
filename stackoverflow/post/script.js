@@ -14,7 +14,7 @@ $.getJSON(`https://api.stackexchange.com/2.3/questions/${id}?order=desc&sort=act
     let s = 'neut'
     if (post.score > 0) {
       s = 'pos'
-    } else if (e.post < 0) {
+    } else if (post.score < 0) {
       s = 'neg'
     }
     postBody.innerHTML = postBody.innerHTML + `

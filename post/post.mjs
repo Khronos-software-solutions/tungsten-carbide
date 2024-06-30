@@ -15,7 +15,7 @@ window.onload = () => {
   let s = 'neut'
   if (post.score > 0) {
     s = 'pos'
-  }  else if (e.post < 0) {
+  }  else if (post.score < 0) {
     s = 'neg'
   } 
   postBody.innerHTML = postBody.innerHTML + `
